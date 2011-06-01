@@ -1,0 +1,317 @@
+﻿<Window x:Class="GemScopeWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:WPFMediaKit.DirectShow.Controls;assembly=WPFMediaKit"
+        xmlns:CUI="clr-namespace:GemScopeWPF.UI" 
+        Title="MainWindow" Width="1000" Loaded="Window_Loaded" WindowState="Maximized" >
+    
+    <Window.Resources>
+        <Style x:Key="StoneInfoPartStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"></Setter>
+        </Style>
+        
+        <DataTemplate x:Key="StoneInfoPartTemplate" >
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock  Text="{Binding Title}" Style="{StaticResource StoneInfoPartStyle}" Width="80"></TextBlock>
+                <TextBlock Text="{Binding Value}" Style="{StaticResource StoneInfoPartStyle}" TextWrapping="Wrap" Width="100"></TextBlock>
+            </StackPanel>
+        </DataTemplate>
+
+        <Style x:Key="ToolBarDropDownButtonStyle" TargetType="{x:Type CUI:DropDownButton}">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1,1,1,1"/>
+            <Setter Property="Background" Value="#00FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#00FFFFFF"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CUI:DropDownButton}">
+                        <Border SnapsToDevicePixels="True" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <!--<Label>-->
+                            <StackPanel Orientation="Horizontal">
+                                <Image Margin="2,2,2,2" VerticalAlignment="Center" Width="16" Height="16" Source="{TemplateBinding Image}"/>
+                                <Label Content="{TemplateBinding Text}" Target="{TemplateBinding Target}" VerticalAlignment="Center" Padding="0" />
+                                <Path Fill="{DynamicResource GlyphBrush}" Data="M 0 0 L 4 4 L 8 0 Z"  Height="5" Margin="5,2,2,0"/>
+                            </StackPanel>
+                            <!--</Label>-->
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="BorderBrush" Value="#FF316AC5"/>
+                                <Setter Property="Background" Value="#FFE1E6E8"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#FF316AC5"/>
+                                <Setter Property="Background" Value="#FFC1D2EE"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#FF316AC5"/>
+                                <Setter Property="Background" Value="#FFC1D2EE"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsChecked" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="BorderBrush" Value="#FF4B4B6F"/>
+                                <Setter Property="Background" Value="#FF98B5E2"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsKeyboardFocused" Value="True"/>
+                                    <Condition Property="IsChecked" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="BorderBrush" Value="#FF4B4B6F"/>
+                                <Setter Property="Background" Value="#FF98B5E2"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderBrush" Value="#FF4B4B6F"/>
+                                <Setter Property="Background" Value="#FF98B5E2"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--<Style TargetType="{x:Type StackPanel}">
+            <Setter Property="CUI:DragSelectionHelper.IsDragSelecting" Value="False" />
+            <Style.Triggers>
+                <Trigger Property="StackPanel.IsMouseOver" Value="True">
+                    <Setter Property="CUI:DragSelectionHelper.IsDragSelecting" Value="True" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>-->
+
+
+
+    </Window.Resources>
+    
+    
+   
+    
+    <Grid  Name="grid1">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="250*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Background="#d6d6d6">
+            <Border BorderBrush="#b6bccc" BorderThickness="0,0,0,1">
+                <DockPanel>
+                    <Menu IsMainMenu="True">
+                        <MenuItem Header="File">
+                            <MenuItem Header="Capture Image..."></MenuItem>
+                            <MenuItem Header="Capture Movie..."></MenuItem>
+                            <MenuItem Header="Options..." Click="ShowOptionsMenu_Click" ></MenuItem>
+                            <Separator></Separator>
+                            <MenuItem Header="Exit"></MenuItem>
+                        </MenuItem>
+                        <MenuItem Header="Help">
+                            <MenuItem Header="About"></MenuItem>
+                            
+                            <Separator></Separator>
+                            <MenuItem Header="Licence" Click="Licence_Click"></MenuItem>
+                        </MenuItem>
+                        
+                    </Menu>
+                </DockPanel>
+            </Border>
+           
+                 <ToolBar Name="toolBar1" Background="#d6d6d6" BorderThickness="0,0,0,1" BorderBrush="black" ToolBarTray.IsLocked="True">
+
+                <Button Width="60" Height="60" Name="SendEmail" Click="SendEmail_Click">
+                    <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="5" >Email</TextBlock>
+                </Button>
+                <Button Width="60" Height="60" Click="ViewPrintMenu_Click">
+                    <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="5">Print</TextBlock>
+                </Button>
+                <Button Width="60" Height="60" Click="OpenSkype_Click">
+                    <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="5">Skype</TextBlock>
+                </Button>
+
+
+                <CUI:DropDownButton x:Name="ddb1" Width="100"
+                                         Text="Sort By..."
+                                    Style="{StaticResource ToolBarDropDownButtonStyle}"
+                                    >
+
+
+                    <CUI:DropDownButton.DropDownContextMenu>
+                    <ContextMenu>
+                            <MenuItem Header="Name" Tag="name" Click="ViewOrderBy"></MenuItem>
+                            <MenuItem Header="Date modified" Tag="data" Click="ViewOrderBy"></MenuItem>
+                            <MenuItem Header="Type" Tag="type" Click="ViewOrderBy"></MenuItem>
+                            <MenuItem Header="Diamond weight" Tag="weight" Click="ViewOrderBy"></MenuItem>
+                            <Separator></Separator>
+                            <MenuItem Header="Ascending" Tag="asc" Click="ViewOrderByDirection"></MenuItem>
+                            <MenuItem Header="Descending" Tag="desc" Click="ViewOrderByDirection"></MenuItem>
+                        </ContextMenu>
+                   </CUI:DropDownButton.DropDownContextMenu>
+                </CUI:DropDownButton>
+
+               
+
+
+
+            </ToolBar>
+
+           
+
+
+        </StackPanel>
+
+        
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="650" />
+            </Grid.ColumnDefinitions>
+
+            <Rectangle Fill="gray" Stroke="#585858" Grid.Column="1"></Rectangle>
+            <Rectangle Fill="gray" Stroke="#585858" Grid.Column="3"></Rectangle>
+            <StackPanel Background="#d6d6d6" >
+                <TextBlock Margin="5">Choose a folder to save stones to</TextBlock>
+                <TreeView x:Name="FolderBrowserTree"  Width="Auto" Background="#d6d6d6" Height="250" Margin="0,5,0,0" BorderThickness="0,1,0,1">
+                    <TreeView.Resources>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding}" Margin="5,0" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TreeView.Resources>
+                </TreeView>
+                <Button Content="Create new folder" Margin="2,5,2,5" Click="CreateSubFolder_Click"></Button>
+                <Border BorderBrush="black" BorderThickness="0,1,0,1" Height="5" Background="gray"></Border>
+                
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="450" >
+
+                    <ItemsControl Name="StoneInfo"
+                        ItemTemplate="{StaticResource StoneInfoPartTemplate}" Margin="5">
+
+                        <ItemsControl.ItemsPanel >
+                            <ItemsPanelTemplate>
+
+                                <StackPanel Orientation="Vertical" />
+
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                    </ItemsControl>
+
+                </ScrollViewer>
+                   
+                    
+                                   
+                
+            </StackPanel>
+
+            <StackPanel Grid.Column="4" Background="#d6d6d6" >
+
+                <TextBlock FontSize="25" FontWeight="bold" Name="MovieFlowTimerText" Margin="6" Visibility="Collapsed" ></TextBlock>
+                <Border BorderThickness="1" BorderBrush="#585858" Width="640" Height="480" Margin="5" Name="VideoBorder">
+                    <StackPanel>
+                        
+                        <Controls:VideoCaptureElement DesiredPixelWidth="640"
+                                                  DesiredPixelHeight="480"
+                                                     
+                                                  FPS="30"
+                                                  EnableSampleGrabbing="True"
+                                                  Width="640"
+                                                  Height="480"
+                                                  Volume="0"
+                                                  x:Name="videoElement" Stretch="Fill" />
+                        
+                        
+                    </StackPanel>
+                    
+
+
+
+                    
+                </Border>
+                <Rectangle Height="5" Fill="Gray" Stroke="black" StrokeThickness="1"></Rectangle>
+                <ToolBar Background="#d6d6d6" BorderThickness="0,0,0,1" BorderBrush="black" ToolBarTray.IsLocked="True" >
+                    <Button Height="60" Margin="5" Width="100" Click="StartStopCamera_Click"  Name="StartStopCamera" IsEnabled="{Binding CameraControlButtonIsEnabled}">
+                        <TextBlock Text="{Binding CameraStartStopButtonText}"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    </Button>
+                    
+                    <Button Height="60" Click="CaptureNewStone_Click"  Margin="5" Width="100" >
+                        <TextBlock Text="Capture image"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    </Button>
+                    <Separator></Separator>
+                    <Button Height="60" Click="CaptureMovie_Click"  Margin="5" Width="150" >
+                        <TextBlock Text="{Binding CameraStartStoprVideoRecordingButtonText}"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    </Button>
+                    <Button Height="60" Click="CaptureMovieEnd_Click"  Margin="5" Width="100" Name="CaptureMovieEnd" Visibility="{Binding CaptureButtonsVisibility}" >
+                        <TextBlock Text="End Recording"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    </Button>
+                    <Button Height="60" Click="CaptureMovieCancel_Click"  Margin="5" Width="100" Name="CaptureMovieCancel" Visibility="{Binding CaptureButtonsVisibility}" >
+                        <TextBlock Text="Cancel Recording"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    </Button>
+                </ToolBar>
+                
+            </StackPanel>
+
+
+
+            <ListBox Name="ViewControl"  Grid.Column="2"  Background="#828282"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Extended" CUI:DragSelectionHelper.IsDragSelectionEnabled="false" >
+
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Background="#828282"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Order by">
+                            <MenuItem Header="Name" Tag="name" Click="ViewOrderBy"></MenuItem>
+                            <MenuItem Header="Date modified" Tag="data" Click="ViewOrderBy"></MenuItem>
+                            <MenuItem Header="Type" Tag="type" Click="ViewOrderBy"></MenuItem>
+                            <MenuItem Header="Diamond weight" Tag="weight" Click="ViewOrderBy"></MenuItem>
+                            <Separator></Separator>
+                            <MenuItem Header="Ascending" Tag="asc" Click="ViewOrderByDirection"></MenuItem>
+                            <MenuItem Header="Descending" Tag="desc" Click="ViewOrderByDirection"></MenuItem>
+                        </MenuItem>
+                        <Separator></Separator>
+                        <MenuItem Header="Edit..." Click="ViewEditMenu_Click"  ></MenuItem>
+                        <MenuItem Header="Rename..." Click="ViewRenameMenu_Click"></MenuItem>
+                        <MenuItem Header="Delete..." Click="ViewDeleteMenu_Click"></MenuItem>
+                        <MenuItem Header="Save as..." Click="ViewSaveAsMenu_Click"></MenuItem>
+                        <Separator></Separator>
+                        <MenuItem Header="Email to..." Click="ViewEmailMenu_Click"></MenuItem>
+                        <MenuItem Header="Print..." Click="ViewPrintMenu_Click" ></MenuItem>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+
+                
+
+
+
+            </ListBox>
+
+
+
+        </Grid>
+        
+    </Grid>
+    
+</Window>

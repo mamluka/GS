@@ -1,0 +1,28 @@
+﻿<Window x:Class="GemScopePasswordGenerator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="385" Width="400">
+    <Grid>
+        <DockPanel>
+            <StackPanel Margin="10" DockPanel.Dock="Top">
+                <TextBlock Height="200"  > 
+                You need to call our prepresentativbes and tell the activation key
+                </TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Width="100">Activation key:</Label>
+                    <TextBox Width="140" Name="ActivationCode"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Width="100">Activation key:</Label>
+                    <TextBox Width="222"  Name="Key" IsReadOnly="True"></TextBox>
+                </StackPanel>
+                
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Width="150" Height="32" Click="Generate_Click">Generate Password</Button>
+            </StackPanel>
+        </DockPanel>
+       
+    </Grid>
+</Window>
