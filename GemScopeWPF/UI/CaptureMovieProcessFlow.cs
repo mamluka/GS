@@ -17,7 +17,16 @@ namespace GemScopeWPF.UI
         public Capture CaptureFacede { get; set; }
         public string TempFilename { get; set; }
 
-        public CaptureMovieProcessFlowStates State { get; set; }
+        private CaptureMovieProcessFlowStates _state;
+
+        public CaptureMovieProcessFlowStates State {
+            get { return _state; }
+            set
+            {
+                _state = value;
+                this.Notify(this);
+            }
+        }
         public CaptureMovieProcessFlowStage Stage { get; set; }
 
         private bool _isRecording;
@@ -171,6 +180,7 @@ namespace GemScopeWPF.UI
                     else
                     {
                         PreRecordingTimer.Start();
+                        State = CaptureMovieProcessFlowStates.CountingDownTillRecording;
                         IsRecording = true;
                     }
 
@@ -184,14 +194,14 @@ namespace GemScopeWPF.UI
                     {
                         RecordingTimer.Stop();
                         State = CaptureMovieProcessFlowStates.PausedRecording;
-                        CaptureFacede.Pause();
+                        CaptureFacede.PauseCapturingVideoToFile();
                         IsRecording = false;
                     }
                     else
                     {
                         RecordingTimer.Start();
                         State = CaptureMovieProcessFlowStates.Recording;
-                        CaptureFacede.Play();
+                        CaptureFacede.ResumeCapturingVideoToFile();
                         IsRecording = true;
                     }
 
@@ -252,7 +262,7 @@ namespace GemScopeWPF.UI
                 RecordingTimer.Start();
                 State = CaptureMovieProcessFlowStates.Recording;
                 Stage = CaptureMovieProcessFlowStage.Recording;
-                var filename = System.IO.Path.Combine(System.IO.Path.GetTempPath(), new Random().Next().ToString() + ".wmv");
+                var filename = System.IO.Path.Combine(System.IO.Path.GetTempPath(), new Random().Next().ToString() + ".avi");
 
                 CaptureFacede.StartCapturingVideoToFile(filename);
 
@@ -269,9 +279,11 @@ namespace GemScopeWPF.UI
         public void PauseRecording()
         {
             RecordingTimer.Stop();
-            CaptureFacede.Stop();
+            CaptureFacede.PauseCapturingVideoToFile();
 
             this.IsRecording = false;
+            State = CaptureMovieProcessFlowStates.PausedRecording;
+            Stage = CaptureMovieProcessFlowStage.Stopped;
             
         }
         public void StopRecording()
@@ -331,7 +343,7 @@ namespace GemScopeWPF.UI
     }
     public enum CaptureMovieProcessFlowStates
     {
-        CountingDownTillRecording=1,Recording=2,PausedCountingDownTillRecording=3,PausedRecording,Stop=4
+        CountingDownTillRecording=1,Recording=2,PausedCountingDownTillRecording=3,PausedRecording=4,Stop=5
     }
     public enum CaptureMovieProcessFlowStage
     {

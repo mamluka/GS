@@ -3,25 +3,57 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Licence" Height="385" Width="400" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Grid>
+        
         <DockPanel>
             <StackPanel Margin="10" DockPanel.Dock="Top">
-                <TextBlock Height="200"  > 
-                some text here that we need to write
-                </TextBlock>
+
+                <FlowDocumentScrollViewer
+                    VerticalScrollBarVisibility="Hidden"
+                    
+                    >
+                    <FlowDocument
+                        
+                        >
+                        <Paragraph FontSize="11" FontFamily="Arial">
+                            DiamondsView
+                            <LineBreak/>
+                            <Span FontSize="25" Foreground="Blue" >GemScope Viewer</Span>
+
+
+
+
+                            <LineBreak/>
+                            <LineBreak/>
+                            <LineBreak/>
+                            <LineBreak/>
+
+                            <LineBreak/>
+Copyright(2011) by Diamonds and Jewelry View
+                            <LineBreak/>
+                            Version 2
+                            <LineBreak/>
+                            <LineBreak/>
+                            <LineBreak/>
+                            <Span FontSize="15" Foreground="Red" >Gemscope Viewer Is Not Registered</Span>
+                          
+                        </Paragraph>
+                    </FlowDocument>
+                </FlowDocumentScrollViewer>
+                
                 <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Width="100">Activation key:</Label>
-                    <TextBox Width="180" Name="ActivationCode" IsReadOnly="True" ></TextBox>
+                    <Label Width="135">Installation ID Number:</Label>
+                    <TextBox Width="120" Name="ActivationCode" IsReadOnly="True" ></TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Width="100">Activation key:</Label>
-                    <TextBox Width="180"  Name="Key" ></TextBox>
+                    <Label Width="135">Activation key:</Label>
+                    <TextBox Width="120"  Name="Key" ></TextBox>
                 </StackPanel>
 
             </StackPanel>
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Width="150" Height="32" Click="TryLater_Click" Margin="0,0,5,0">Try later</Button>
-                <Button Width="150" Height="32" Click="VerifyKey_Click" Margin="5,0,0,0">Verify key</Button>
+                <Button Width="150" Height="32" Click="TryLater_Click" Margin="0,0,5,0">Register Later</Button>
+                <Button Width="150" Height="32" Click="VerifyKey_Click" Margin="5,0,0,0">Register Now!</Button>
             </StackPanel>
         </DockPanel>
     </Grid>

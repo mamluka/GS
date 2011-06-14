@@ -26,6 +26,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Runtime.InteropServices.ComTypes;
+using System.Security;
 
 namespace WPFMediaKit.DirectShow.Interop
 {
@@ -2384,6 +2385,16 @@ namespace WPFMediaKit.DirectShow.Interop
 
         [PreserveSig]
         int GetInfo([Out] out AMStreamInfo pInfo);
+    }
+
+    [SuppressUnmanagedCodeSecurity]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [Guid("36b73881-c2c8-11cf-8b46-00805f6cef60")]
+    public interface IAMStreamControlBridge
+    {
+        int GetInfo(out AMStreamInfo pInfo);
+        int StartAt(DsLong ptStart, int dwCookie);
+        int StopAt(DsLong ptStop, bool bSendExtra, int dwCookie);
     }
 
     [ComImport, System.Security.SuppressUnmanagedCodeSecurity,

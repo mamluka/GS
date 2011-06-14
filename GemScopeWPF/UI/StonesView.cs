@@ -348,6 +348,31 @@ namespace GemScopeWPF.UI
             }
             return String.Empty;
         }
+        static public List<string> GetCurrentSelectedStoneFilenames()
+        {
+            List<string> list = new List<string>();
+
+            if (ViewControl.SelectedItems.Count > 0)
+            {
+                foreach (var item in ViewControl.SelectedItems)
+                {
+                   
+                    string filename = (string)((StackPanel)(item)).Tag;
+                    string file = Path.Combine(CurrentPath, filename);
+
+
+                    if (!String.IsNullOrEmpty(filename))
+                    {
+                        list.Add(file);
+                    }
+                }
+                return list;
+            }
+            else
+            {
+                return list;
+            }
+        }
         static public Stone GetCurrentSelectedStone()
         {
             if (ViewControl.SelectedItem != null)
@@ -409,6 +434,11 @@ namespace GemScopeWPF.UI
             if (!String.IsNullOrWhiteSpace(newfilename))
             {
                 File.Move(file, Path.Combine(CurrentPath, newfilename + ext));
+
+                StonesRepository rep = new StonesRepository(CurrentPath);
+                rep.RenameStone(Path.GetFileName(file),newfilename + ext);
+
+                RefreshView();
             }
 
         }
@@ -422,6 +452,12 @@ namespace GemScopeWPF.UI
             if (File.Exists(file))
             {
                 File.Delete(file);
+
+                StonesRepository rep = new StonesRepository(CurrentPath);
+                rep.DeleteStone(Path.GetFileName(file));
+
+                RefreshView();
+                
             }
 
         }
@@ -431,9 +467,9 @@ namespace GemScopeWPF.UI
             SaveFileDialog savedlg = new SaveFileDialog();
             savedlg.Filter = "JPeg Image|*.jpg";
             savedlg.Title = "Save a stone image";
-            savedlg.OpenFile();
+            savedlg.ShowDialog();
             savedlg.DefaultExt = "jpg";
-            if (savedlg.ShowDialog() == true)
+            if (!String.IsNullOrEmpty(savedlg.FileName))
             {
 
                 File.Copy(file, savedlg.FileName);

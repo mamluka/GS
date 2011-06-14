@@ -22,8 +22,9 @@ namespace GemScopeWPF.Sharing
         }
         static public void OpenSkype()
         {
-           // SkypeClass skype = new SkypeClass();
-            //skype.la
+
+           
+           
             MessageBox.Show("To be able to use Video in skype we have to stop the camera in GemScope");
 
             Capture capture = Capture.GetInstance();

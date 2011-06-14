@@ -103,6 +103,7 @@
     <Compile Include="DirectShow\Interop\DynGraph.cs" />
     <Compile Include="DirectShow\Interop\encdec.cs" />
     <Compile Include="DirectShow\Interop\EvCode.cs" />
+    <Compile Include="DirectShow\Interop\GMFBridge.cs" />
     <Compile Include="DirectShow\Interop\IL21Dec.cs" />
     <Compile Include="DirectShow\Interop\MediaObj.cs" />
     <Compile Include="DirectShow\Interop\MediaParam.cs" />
@@ -199,6 +200,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="GMFBridgeLib">
+      <Guid>{5CE27AC5-940C-4199-8746-01FE1F12A12E}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

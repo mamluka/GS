@@ -122,6 +122,7 @@ namespace GemScopeWPF.Repository
                 FileStream fstream = new FileStream(filename, FileMode.Create);
                 encoder.Save(fstream);
                 fstream.Close();
+                fstream.Dispose();
                 //TODO in the future may support other types
                 string type = "diamond";
 
@@ -286,6 +287,7 @@ namespace GemScopeWPF.Repository
                 try
                 {
                     Xdoc.Root.Elements("stone").Where(m => m.Attribute("filename").Value == filename).Remove();
+                    Xdoc.Save(XmlFile);
                     return true;
                 }
                 catch (Exception)
@@ -301,6 +303,32 @@ namespace GemScopeWPF.Repository
             }
         }
 
+        public bool RenameStone(string oldfilename,string newfilename)
+        {
+
+            if (IsExtendedStoneInfoExists)
+            {
+                try
+                {
+                    
+                    Xdoc.Root.Elements("stone").Where(m => m.Attribute("filename").Value == oldfilename).Single().Elements("info").Where(m => m.Attribute("title").Value == "Filename").Single().Element("value").ReplaceWith(new XElement("value", new XCData(Path.GetFileNameWithoutExtension(newfilename))));
+                    Xdoc.Root.Elements("stone").Where(m => m.Attribute("filename").Value == oldfilename).Single<XElement>().Attribute("filename").Value = newfilename;
+                    Xdoc.Save(XmlFile);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }
+
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
 
             
         private void CreateEmptyStoneRepXMLFile(string path)

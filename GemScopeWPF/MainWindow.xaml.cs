@@ -149,10 +149,10 @@ namespace GemScopeWPF
         {
             SharingUtils sharing = new SharingUtils();
 
-            string file = StonesView.GetCurrentSelectedStoneFilename();
-            if (!String.IsNullOrEmpty(file))
+            List<string> files = StonesView.GetCurrentSelectedStoneFilenames();
+            if (files != null)
             {
-                SharingUtils.OpenNewEmailWithOutlook(new List<string> { file });
+                SharingUtils.OpenNewEmailWithOutlook(files);
             }
             else
             {
@@ -195,7 +195,7 @@ namespace GemScopeWPF
         private void ViewSaveAsMenu_Click(object sender, RoutedEventArgs e)
         {
             string file = StonesView.GetCurrentSelectedStoneFilename();
-            if (String.IsNullOrEmpty(file))
+            if (!String.IsNullOrEmpty(file))
             {
                 StonesView.PreformSaveAsOfStone(file);  
             }
@@ -204,10 +204,16 @@ namespace GemScopeWPF
         }
         private void ViewEmailMenu_Click(object sender, RoutedEventArgs e)
         {
-            string file = StonesView.GetCurrentSelectedStoneFilename();
-            if (!String.IsNullOrEmpty(file))
+            SharingUtils sharing = new SharingUtils();
+
+            List<string> files = StonesView.GetCurrentSelectedStoneFilenames();
+            if (files != null)
             {
-                SharingUtils.OpenNewEmailWithOutlook(new List<string> { file });
+                SharingUtils.OpenNewEmailWithOutlook(files);
+            }
+            else
+            {
+                MessageBox.Show("No stones selected");
             }
         }
         private void ViewPrintMenu_Click(object sender, RoutedEventArgs e)

@@ -125,11 +125,9 @@ namespace GemScopeWPF.WebcamFacade
 
         public void StartCapturingVideoToFile(string filename)
         {
-            Control.Stop();
-            Control.VideoCaptureDevice = null;
-            Control.OutputFileName = filename;
+            Control.SetNextFileName(filename);
+            Control.StartCapture();
 
-            Control.VideoCaptureDevice = this.GetCaptureDevice();
             IsCapturingVideo = true;
             //Control.Pause();
 
@@ -140,21 +138,46 @@ namespace GemScopeWPF.WebcamFacade
 
 
         }
+        public void ResumeCapturingVideoToFile()
+        {
+
+            Control.ResumeCapture();
+
+            IsCapturingVideo = true;
+            //Control.Pause();
+
+            MainWindowView view = MainWindowView.GetInstrance();
+           // view.CameraStartStoprVideoRecordingButtonText = "Stop Recording Video";
+
+
+
+
+        }
         public void StopCapturingVideoToFile()
         {
-            Control.Stop();
-            Control.VideoCaptureDevice = null;
-            Control.OutputFileName = String.Empty;
-            Control.VideoCaptureDevice = this.GetCaptureDevice();
+
+            Control.StopCapture();
+
             IsCapturingVideo = false;
 
             MainWindowView view = MainWindowView.GetInstrance();
-            view.CameraStartStoprVideoRecordingButtonText = "Start Recording Video";
+          //  view.CameraStartStoprVideoRecordingButtonText = "Start Recording Video";
            
             //Control.Pause();
 
 
         }
+        public void PauseCapturingVideoToFile()
+        {
+            Control.PauseCapture();
+
+            IsCapturingVideo = false;
+            //Control.Pause();
+
+            MainWindowView view = MainWindowView.GetInstrance();
+          //  view.CameraStartStoprVideoRecordingButtonText = "Continue Recording Video";
+        }
+
         public void Stop()
         {
             Control.Stop();
@@ -177,6 +200,7 @@ namespace GemScopeWPF.WebcamFacade
         {
             Control.ShowPropertyPage();
         }
+      
         
 
         

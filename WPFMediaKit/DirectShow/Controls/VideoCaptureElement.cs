@@ -210,7 +210,7 @@ namespace WPFMediaKit.DirectShow.Controls
 
         protected virtual void OnOutputFileNameChanged(DependencyPropertyChangedEventArgs e)
         {
-            this.VideoCapturePlayer.FileName = (string) e.NewValue;
+            //this.VideoCapturePlayer.FileName = (string) e.NewValue;
         }
 
         public string OutputFileName
@@ -238,11 +238,7 @@ namespace WPFMediaKit.DirectShow.Controls
             base.Play();
         }
 
-        public void RestartPlay()
-        {
-            
-        }
-
+     
         public event EventHandler<VideoSampleArgs> NewVideoSample;
 
         private void InvokeNewVideoSample(VideoSampleArgs e)
@@ -302,6 +298,57 @@ namespace WPFMediaKit.DirectShow.Controls
             
             MediaPlayerBase.Dispatcher.BeginInvoke((Action) (() => VideoCapturePlayer.ShowCapturePropertyPages(hwnd)));
         }
+
+        public void SetNextFileName(string filename)
+        {
+
+            VideoCapturePlayer.Dispatcher.BeginInvoke((Action)( delegate {
+                VideoCapturePlayer.SetNextFilename(filename);
+            } ));
+         
+         
+        }
+
+        public void StartCapture()
+        {
+            VideoCapturePlayer.Dispatcher.BeginInvoke((Action)( delegate {
+                VideoCapturePlayer.StartCapture();
+            } ));
+            
+        }
+
+        public void StopCapture()
+        {
+            VideoCapturePlayer.Dispatcher.BeginInvoke((Action)(delegate
+            {
+                VideoCapturePlayer.StopCapture();
+            }));
+         
+
+          
+        }
+
+        public void PauseCapture()
+        {
+            VideoCapturePlayer.Dispatcher.BeginInvoke((Action)(delegate
+            {
+
+                VideoCapturePlayer.PauseCapture();
+            }));
+         
+
+        }
+
+        public void ResumeCapture()
+        {
+            VideoCapturePlayer.Dispatcher.BeginInvoke((Action)(delegate
+            {
+                VideoCapturePlayer.StartCapture();
+            }));
+         
+          
+        }
+
 
         protected override MediaPlayerBase OnRequestMediaPlayer()
         {

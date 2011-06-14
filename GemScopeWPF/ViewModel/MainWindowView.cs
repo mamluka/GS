@@ -102,16 +102,21 @@ namespace GemScopeWPF.ViewModel
 
         public void CameraStateChange(CaptureMovieProcessFlow value)
         {
-            if (value.IsRecording)
+            if ((value.State == CaptureMovieProcessFlowStates.Recording || value.State == CaptureMovieProcessFlowStates.CountingDownTillRecording))
             {
                 CameraStartStoprVideoRecordingButtonText = "Pause Recording";
                 
             }
+            else if ((value.State == CaptureMovieProcessFlowStates.PausedRecording || value.State == CaptureMovieProcessFlowStates.PausedCountingDownTillRecording))
+            {
+                CameraStartStoprVideoRecordingButtonText = "Continue Recording";
+            }
             else
             {
                 CameraStartStoprVideoRecordingButtonText = "Start Recording";
-                
+
             }
+           
             if (value.State == CaptureMovieProcessFlowStates.Stop)
             {
                 this.CaptureButtonsVisibility = Visibility.Hidden;

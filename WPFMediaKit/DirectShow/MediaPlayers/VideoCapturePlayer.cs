@@ -24,6 +24,14 @@ namespace WPFMediaKit.DirectShow.MediaPlayers
 
         #region Locals
         /// <summary>
+        /// Helps the GPFBridge
+        /// </summary>
+        const long NEVER = long.MaxValue;
+
+        // Are we actively capturing?
+        private bool m_Capturing = false;
+
+        /// <summary>
         /// The video capture pixel height
         /// </summary>
         private int m_desiredHeight = 240;
@@ -43,6 +51,8 @@ namespace WPFMediaKit.DirectShow.MediaPlayers
         /// </summary>
         private IGraphBuilder m_graph;
 
+        // The graph that contains the file writer
+        private IGraphBuilder m_pCaptureGraph;
         /// <summary>
         /// The DirectShow video renderer
         /// </summary>
@@ -77,6 +87,19 @@ namespace WPFMediaKit.DirectShow.MediaPlayers
         /// The sample grabber interface used for getting samples in a callback
         /// </summary>
         private ISampleGrabber m_sampleGrabber;
+
+        // The bridge controller that stands between the two graphs
+        private IGMFBridgeController m_pBridge;
+
+        // The capture pin of the capture device (or the smarttee if
+        // the capture device has no preview pin)
+        private IPin m_pCapOutput;
+
+        // The source side of the bridge
+        private IBaseFilter m_pSourceGraphSinkFilter;
+
+        // The other side of the bridge
+        private IBaseFilter m_pCaptureGraphSourceFilter;
 
 #if DEBUG
         private DsROTEntry m_rotEntry;
@@ -226,8 +249,10 @@ namespace WPFMediaKit.DirectShow.MediaPlayers
             VerifyAccess();
 
             if (m_graph == null)
+            {
                 SetupGraph();
-
+              //  SetupGraph2();
+            }
             base.Play();
         }
 
@@ -266,9 +291,25 @@ namespace WPFMediaKit.DirectShow.MediaPlayers
             /* Clean up any messes left behind */
             FreeResources();
 
+  
+           
+
             try
             {
+
+             
                 /* Create a new graph */
+
+                m_pBridge = (IGMFBridgeController)new GMFBridgeController();
+
+              
+
+                int hr = m_pBridge.AddStream(true, eFormatType.MuxInputs, true);
+                DsError.ThrowExceptionForHR(hr);
+
+
+                
+
                 m_graph = (IGraphBuilder)new FilterGraphNoThread();
 
                 #if DEBUG
@@ -279,10 +320,10 @@ namespace WPFMediaKit.DirectShow.MediaPlayers
                  * with rendering a capture graph */
                 var graphBuilder = (ICaptureGraphBuilder2)new CaptureGraphBuilder2();
 
-                /* Set our filter graph to the capture graph */
-                int hr = graphBuilder.SetFiltergraph(m_graph);
+                hr = m_pBridge.InsertSinkFilter(m_graph, out m_pSourceGraphSinkFilter);
                 DsError.ThrowExceptionForHR(hr);
-
+                /* Set our filter graph to the capture graph */
+                
                 /* Add our capture device source to the graph */
                 if (m_videoCaptureSourceChanged)
                 {
@@ -317,6 +358,8 @@ namespace WPFMediaKit.DirectShow.MediaPlayers
                 else
                     /* Configure the video output pin with our parameters */
                     SetVideoCaptureParameters(graphBuilder, m_captureDevice, new Guid("73646976-0000-0010-8000-00AA00389B71"));
+
+                
                 
                 var rendererType = VideoRendererType.VideoMixingRenderer9;
 
@@ -346,50 +389,75 @@ namespace WPFMediaKit.DirectShow.MediaPlayers
                     DsError.ThrowExceptionForHR(hr);
                 }
 
+                hr = graphBuilder.SetFiltergraph(m_graph);
+                DsError.ThrowExceptionForHR(hr);
+
+
                 IBaseFilter mux = null;
                 IFileSinkFilter sink = null;
                 if (!string.IsNullOrEmpty(this.fileName))
                 {
-                    hr = graphBuilder.SetOutputFileName(MediaSubType.Asf, this.fileName, out mux, out sink);
-                    DsError.ThrowExceptionForHR(hr);
+                    //hr = graphBuilder.SetOutputFileName(MediaSubType.Asf, this.fileName, out mux, out sink);
+                    //DsError.ThrowExceptionForHR(hr);
 
-                    IConfigAsfWriter lConfig = mux as IConfigAsfWriter;
+                    //IConfigAsfWriter lConfig = mux as IConfigAsfWriter;
 
-                    Guid cat = new Guid("7A747920-2449-4D76-99CB-FDB0C90484D4");
-
-
-                    hr = lConfig.ConfigureFilterUsingProfileGuid(cat); 
-                    Marshal.ThrowExceptionForHR(hr);
+                    //Guid cat = new Guid("7A747920-2449-4D76-99CB-FDB0C90484D4");
 
 
+                    //hr = lConfig.ConfigureFilterUsingProfileGuid(cat); 
+                    //Marshal.ThrowExceptionForHR(hr);
 
-                    hr = graphBuilder.RenderStream(PinCategory.Capture, MediaType.Video, m_captureDevice, null, mux);
-                    DsError.ThrowExceptionForHR(hr);
+
+
+                    //hr = graphBuilder.RenderStream(PinCategory.Capture, MediaType.Video, m_captureDevice, null, mux);
+                    //DsError.ThrowExceptionForHR(hr);
 
                     
 
-                    //TODO no audio needed
-                     //use the first audio device
-                    var audioDevices = DsDevice.GetDevicesOfCat(FilterCategory.AudioInputDevice);
+                    ////TODO no audio needed
+                    // //use the first audio device
+                    //var audioDevices = DsDevice.GetDevicesOfCat(FilterCategory.AudioInputDevice);
 
-                    if (audioDevices.Length > 0)
-                    {
-                        var audioDevice = AddFilterByDevicePath(m_graph,
-                                                            FilterCategory.AudioInputDevice,
-                                                            audioDevices[0].DevicePath);
+                    //if (audioDevices.Length > 0)
+                    //{
+                    //    var audioDevice = AddFilterByDevicePath(m_graph,
+                    //                                        FilterCategory.AudioInputDevice,
+                    //                                        audioDevices[0].DevicePath);
 
-                        hr = graphBuilder.RenderStream(PinCategory.Capture, MediaType.Audio, audioDevice, null, mux);
-                        DsError.ThrowExceptionForHR(hr);
-                    }
+                    //    hr = graphBuilder.RenderStream(PinCategory.Capture, MediaType.Audio, audioDevice, null, mux);
+                    //    DsError.ThrowExceptionForHR(hr);
+                    //}
                 }
 
+
+                // Add the sink filter to the source graph
+
+                
+
+                
                 hr = graphBuilder.RenderStream(PinCategory.Preview,
                                                MediaType.Video,
                                                m_captureDevice,
                                                null,
                                                m_renderer);
 
+
+
+
+               
                 DsError.ThrowExceptionForHR(hr);
+
+                hr = graphBuilder.RenderStream(PinCategory.Capture, MediaType.Video, m_captureDevice, null, m_pSourceGraphSinkFilter);
+                DsError.ThrowExceptionForHR(hr);
+
+                hr = graphBuilder.FindPin(m_captureDevice, PinDirection.Output, PinCategory.Capture, MediaType.Video, false, 0, out m_pCapOutput);
+                if (hr >= 0)
+                {
+                    IAMStreamControlBridge pSC = (IAMStreamControlBridge)m_pCapOutput;
+                    pSC.StartAt(NEVER, 0);  // Ignore any error
+                }
+
 
                 /* Register the filter graph 
                  * with the base classes */
@@ -422,6 +490,200 @@ namespace WPFMediaKit.DirectShow.MediaPlayers
 
             /* Success */
             InvokeMediaOpened();
+        }
+
+        public void SetNextFilename(string pFile)
+        {
+            VerifyAccess();
+
+            int hr;
+
+            ICaptureGraphBuilder2 pBuilder = null;
+            IBaseFilter pfMux = null;
+            IFileSinkFilter pSink = null;
+
+            if (pFile != null)
+            {
+                if (m_captureDevice != null)
+                {
+                    ReleaseFilenameMembers();
+
+                    m_pCaptureGraph = (IGraphBuilder)new FilterGraph();
+                    try
+                    {
+                        //m_rot2 = new DsROTEntry(m_pCaptureGraph);
+
+                        // Use the bridge to add the sourcefilter to the graph
+                        hr = m_pBridge.InsertSourceFilter(m_pSourceGraphSinkFilter, m_pCaptureGraph, out m_pCaptureGraphSourceFilter);
+                        DsError.ThrowExceptionForHR(hr);
+
+                        // use capture graph builder to create mux/writer stage
+                        pBuilder = (ICaptureGraphBuilder2)new CaptureGraphBuilder2();
+
+                        hr = pBuilder.SetFiltergraph(m_pCaptureGraph);
+                        DsError.ThrowExceptionForHR(hr);
+
+                        // create the mux/writer
+                        hr = pBuilder.SetOutputFileName(MediaSubType.Avi, pFile, out pfMux, out pSink);
+                        DsError.ThrowExceptionForHR(hr);
+
+                        //IConfigAsfWriter lConfig = pfMux as IConfigAsfWriter;
+
+                        //Guid cat = new Guid("7A747920-2449-4D76-99CB-FDB0C90484D4");
+
+
+                        //hr = lConfig.ConfigureFilterUsingProfileGuid(cat);
+                        //Marshal.ThrowExceptionForHR(hr);
+
+
+                        // render source output to mux
+                        hr = pBuilder.RenderStream(null, null, m_pCaptureGraphSourceFilter, null, pfMux);
+                        DsError.ThrowExceptionForHR(hr);
+
+                        // Store the file name for later use
+                        FileName = pFile;
+                    }
+                    catch
+                    {
+                        FreeResources();
+                    }
+                    finally
+                    {
+                        if (pBuilder != null)
+                        {
+                            Marshal.ReleaseComObject(pBuilder);
+                        }
+
+                        if (pfMux != null)
+                        {
+                            Marshal.ReleaseComObject(pfMux);
+                        }
+
+                        if (pSink != null)
+                        {
+                            Marshal.ReleaseComObject(pSink);
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("Device not selected");
+                }
+            }
+            else
+            {
+                throw new Exception("Invalid parameter");
+            }
+        }
+
+        public void StartCapture()
+        {
+
+            VerifyAccess();
+
+            int hr;
+
+            if (m_captureDevice != null)
+            {
+                if (FileName != null)
+                {
+                    // re-enable capture stream
+                    IAMStreamControl pSC = (IAMStreamControl)m_pCapOutput;
+
+                    // immediately!
+                    pSC.StartAt(null, 0); // Ignore any error
+
+                    // start capture graph
+                    IMediaControl pMC = (IMediaControl)m_pCaptureGraph;
+                    hr = pMC.Run();
+                    DsError.ThrowExceptionForHR(hr);
+
+                    hr = m_pBridge.BridgeGraphs(m_pSourceGraphSinkFilter, m_pCaptureGraphSourceFilter);
+                    DsError.ThrowExceptionForHR(hr);
+
+                    // If we make it here, we are capturing
+                    m_Capturing = true;
+                }
+                else
+                {
+                    throw new Exception("File name not specified");
+                }
+            }
+            else
+            {
+                throw new Exception("Device not selected");
+            }
+        }
+
+        // Stop the file capture (leave the preview running)
+        public void StopCapture()
+        {
+            int hr;
+
+            // Are we capturing?
+            if (m_captureDevice != null)
+            {
+                // disconnect segments
+                hr = m_pBridge.BridgeGraphs(null, null);
+                DsError.ThrowExceptionForHR(hr);
+
+                // stop capture graph
+                IMediaControl pMC = (IMediaControl)m_pCaptureGraph;
+
+                hr = pMC.Stop();
+                DsError.ThrowExceptionForHR(hr);
+
+                // disable capture stream (to save resources)
+                IAMStreamControlBridge pSC = (IAMStreamControlBridge)m_pCapOutput;
+
+                pSC.StartAt(NEVER, 0); // Ignore any error
+
+                m_Capturing = false;
+            }
+        }
+        public void PauseCapture()
+        {
+            int hr;
+
+            // Are we capturing?
+            if (m_captureDevice != null)
+            {
+                // disconnect segments
+                hr = m_pBridge.BridgeGraphs(null, null);
+                DsError.ThrowExceptionForHR(hr);
+
+                // stop capture graph
+                IMediaControl pMC = (IMediaControl)m_pCaptureGraph;
+
+                hr = pMC.Pause();
+                DsError.ThrowExceptionForHR(hr);
+
+                // disable capture stream (to save resources)
+                IAMStreamControlBridge pSC = (IAMStreamControlBridge)m_pCapOutput;
+
+               pSC.StartAt(NEVER, 0); // Ignore any error
+
+                // m_Capturing = false;
+            }
+        }
+        private void ReleaseFilenameMembers()
+        {
+            //if (m_rot2 != null)
+            //{
+            //    m_rot2.Dispose();
+            //    m_rot2 = null;
+            //}
+
+            if (m_pCaptureGraphSourceFilter != null)
+            {
+                Marshal.ReleaseComObject(m_pCaptureGraphSourceFilter);
+                m_pCaptureGraphSourceFilter = null;
+            }
+            if (m_pCaptureGraph != null)
+            {
+                Marshal.ReleaseComObject(m_pCaptureGraph);
+                m_pCaptureGraph = null;
+            }
         }
 
         /// <summary>
@@ -619,6 +881,23 @@ namespace WPFMediaKit.DirectShow.MediaPlayers
                 m_graph = null;
 
                 InvokeMediaClosed(new EventArgs());
+            }
+            if (m_pBridge != null)
+            {
+                Marshal.ReleaseComObject(m_pBridge);
+                m_pBridge = null;
+            }
+
+            if (m_pSourceGraphSinkFilter != null)
+            {
+                Marshal.ReleaseComObject(m_pSourceGraphSinkFilter);
+                m_pSourceGraphSinkFilter = null;
+            }
+
+            if (m_pSourceGraphSinkFilter != null)
+            {
+                Marshal.ReleaseComObject(m_pSourceGraphSinkFilter);
+                m_pSourceGraphSinkFilter = null;
             }
         }
     }
