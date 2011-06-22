@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraPauseTest", "CameraPa
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "GemscopeViewer", "GemscopeViewer\GemscopeViewer.vdproj", "{E4848A84-FBC4-427D-AF51-07C88261B5C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFTest", "PDFTest\PDFTest.csproj", "{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -207,6 +209,31 @@ Global
 		{E4848A84-FBC4-427D-AF51-07C88261B5C5}.SingleImage|Any CPU.ActiveCfg = Release
 		{E4848A84-FBC4-427D-AF51-07C88261B5C5}.SingleImage|Mixed Platforms.ActiveCfg = Release
 		{E4848A84-FBC4-427D-AF51-07C88261B5C5}.SingleImage|x86.ActiveCfg = Release
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.CD_ROM|Any CPU.ActiveCfg = Release|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.CD_ROM|Mixed Platforms.ActiveCfg = Release|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.CD_ROM|Mixed Platforms.Build.0 = Release|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.CD_ROM|x86.ActiveCfg = Release|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.CD_ROM|x86.Build.0 = Release|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.Debug|x86.ActiveCfg = Debug|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.Debug|x86.Build.0 = Debug|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.DVD-5|Any CPU.ActiveCfg = Debug|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.DVD-5|Mixed Platforms.ActiveCfg = Debug|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.DVD-5|Mixed Platforms.Build.0 = Debug|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.DVD-5|x86.ActiveCfg = Debug|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.DVD-5|x86.Build.0 = Debug|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.Release|Any CPU.ActiveCfg = Release|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.Release|Mixed Platforms.Build.0 = Release|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.Release|x86.ActiveCfg = Release|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.Release|x86.Build.0 = Release|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.SingleImage|Any CPU.ActiveCfg = Release|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.SingleImage|Mixed Platforms.ActiveCfg = Release|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.SingleImage|Mixed Platforms.Build.0 = Release|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.SingleImage|x86.ActiveCfg = Release|x86
+		{AD40087F-9F73-4CF8-9B71-D6FC86DFC8F4}.SingleImage|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

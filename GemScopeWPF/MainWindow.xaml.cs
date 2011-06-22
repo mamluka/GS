@@ -382,6 +382,11 @@ namespace GemScopeWPF
             lic.ShowDialog();
         }
 
+        private void CreatePDF_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         
        
 

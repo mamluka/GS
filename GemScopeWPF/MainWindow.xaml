@@ -157,7 +157,9 @@
                    </CUI:DropDownButton.DropDownContextMenu>
                 </CUI:DropDownButton>
 
-               
+                <Button Width="100" Height="60" Name="CreatePDF" Click="CreatePDF_Click">
+                    <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="5" >Create PDF...</TextBlock>
+                </Button>
 
 
 
