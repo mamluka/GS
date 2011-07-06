@@ -51,73 +51,76 @@ namespace GemScopeWPF
         {
             //TODO Add check for options
             //WebCam webcam = WebCam.GetInstance();
-           
-            //webcam.InitializeWebCam(ref VideoView);
-            //webcam.Start();
-
-            ActivationManager am = new ActivationManager();
-            am.PresistActivation();
-           // am.IsExipred();
-
-            Capture capture = Capture.GetInstance();
-            capture.SetCaptureDeviceWPFControl(this.videoElement);
-            //
-           // capture.Stop();
-          //  videoElement2.VideoCaptureDevice = WPFMediaKit.DirectShow.Controls.MultimediaUtil.VideoInputDevices[1];
-            
-
-
-           // Point rp = this.VideoBorder.TransformToAncestor(this).Transform(new Point(0, 0));
-
-            //folder view
-
-            StonesView.ViewControl = ViewControl;
-            DirectoryManager dm = DirectoryManager.GetInstance();
-
-            string path = dm.GetHomeFolder();
-
-            FolderBrowser fb = FolderBrowser.GetInstance();
-
-            fb.SetFolderControl(this.FolderBrowserTree);
-            fb.AddItemClickEvents();
-            fb.Init(path);
-
-           
-
-            
-            StonesView.StoneInfoDisplayControl = StoneInfo;
-
-            StonesView.InitStonesView();
-
-            StonesView.LoadImagesToImageView(path);
-
-            if (SettingsManager.ReadBoolSetting("RunFirstTime"))
+            try
             {
-                //TODO add here things to run the first time
-                //Options options = new Options();
-                //options.Owner = this;
-                //options.Show();
+                //webcam.InitializeWebCam(ref VideoView);
+                //webcam.Start();
 
-                SettingsManager.WriteBoolSetting("RunFirstTime", false);
+                ActivationManager am = new ActivationManager();
+                am.PresistActivation();
 
+                Capture capture = Capture.GetInstance();
+                capture.SetCaptureDeviceWPFControl(this.videoElement);
+                //
+                // capture.Stop();
+                //  videoElement2.VideoCaptureDevice = WPFMediaKit.DirectShow.Controls.MultimediaUtil.VideoInputDevices[1];
+
+
+
+                // Point rp = this.VideoBorder.TransformToAncestor(this).Transform(new Point(0, 0));
+
+                //folder view
+
+                StonesView.ViewControl = ViewControl;
+                DirectoryManager dm = DirectoryManager.GetInstance();
+
+                string path = dm.GetHomeFolder();
+
+                FolderBrowser fb = FolderBrowser.GetInstance();
+
+                fb.SetFolderControl(this.FolderBrowserTree);
+                fb.AddItemClickEvents();
+                fb.Init(path);
+
+
+
+
+                StonesView.StoneInfoDisplayControl = StoneInfo;
+
+                StonesView.InitStonesView();
+
+                StonesView.LoadImagesToImageView(path);
+
+                if (SettingsManager.ReadBoolSetting("RunFirstTime"))
+                {
+                    //TODO add here things to run the first time
+                    //Options options = new Options();
+                    //options.Owner = this;
+                    //options.Show();
+
+                    SettingsManager.WriteBoolSetting("RunFirstTime", false);
+
+                }
+
+
+
+                CaptureMovieProcessFlow flow = CaptureMovieProcessFlow.GetInstance();
+                flow.TextBlock = this.MovieFlowTimerText;
+                flow.CaptureFacede = capture;
             }
-
-           
-
-            CaptureMovieProcessFlow flow = CaptureMovieProcessFlow.GetInstance();
-            flow.TextBlock = this.MovieFlowTimerText;
-            flow.CaptureFacede = capture;
-            
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
 
             
         }
 
         private void CaptureNewStone_Click(object sender, RoutedEventArgs e)
         {
-           // ActivationManager am = ActivationManager.GetInstance();
+            ActivationManager am = ActivationManager.GetInstance();
 
-           // if (am.ActivationStatus())
-          //  {
+            if (am.ActivationStatus())
+            {
 
                 NewStone newstone = new NewStone();
 
@@ -131,12 +134,12 @@ namespace GemScopeWPF
                 newstone.Owner = this;
 
                 newstone.Show();
-         //   }
-           // else
-           // {
-              //  MessageBox.Show("Only registered users can capture images...");
-          //      am.PresistActivation();
-          //  }
+            }
+            else
+            {
+                MessageBox.Show("Only registered users can capture images...");
+                am.PresistActivation();
+            }
 
             
 
@@ -283,20 +286,20 @@ namespace GemScopeWPF
             //Capture capture = Capture.GetInstance();
             //capture.StartCapturingVideoToFile(filename);
 
-          //  ActivationManager am = ActivationManager.GetInstance();
+            ActivationManager am = ActivationManager.GetInstance();
 
-           // if (am.ActivationStatus())
-          //  {
+            if (am.ActivationStatus())
+            {
 
                 CaptureMovieProcessFlow flow = CaptureMovieProcessFlow.GetInstance();
 
                 flow.ToggleStartPause();
-          //  }
-         //   else
-         //   {
-       //         MessageBox.Show("Only registered users can record video");
-        //        am.PresistActivation();
-          //  }
+            }
+            else
+            {
+                MessageBox.Show("Only registered users can record video");
+                am.PresistActivation();
+            }
 
 
 
@@ -372,17 +375,10 @@ namespace GemScopeWPF
             }
         }
 
-        private void About_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Licence lic = new Licence();
-            lic.ShowDialog();
-        }
 
-        private void ExitApplication_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
         }
-
 
         private void Licence_Click(object sender, RoutedEventArgs e)
         {
@@ -392,66 +388,8 @@ namespace GemScopeWPF
 
         private void CreatePDF_Click(object sender, RoutedEventArgs e)
         {
-            PDFExport pdf = new PDFExport();
-
-            Stone stone = StonesView.GetCurrentSelectedStone();
-
-            if (stone.MediaType == 2)
-            {
-                MessageBox.Show("You can't create PDF for a video");
-
-                return;
-            }
-
-            if (stone != null) 
-            {
-                pdf.CreatePDFFile(stone);
-            }
-       
-
 
         }
-
-        private void EmailPDF_Click(object sender, RoutedEventArgs e)
-        {
-            PDFExport pdf = new PDFExport();
-            string filename;
-
-            Stone stone = StonesView.GetCurrentSelectedStone();
-
-            if (stone.MediaType == 2)
-            {
-                MessageBox.Show("You can't create PDF for a video");
-
-                return;
-            }
-
-            if (stone != null)
-            {
-                filename = pdf.CreateRawPDFinTemp(stone);
-                if (!String.IsNullOrWhiteSpace(filename))
-                {
-                    List<string> files = new List<string>();
-                    files.Add(stone.FullFilePath);
-                    files.Add(filename);
-                    SharingUtils.OpenNewEmailWithOutlook(files);
-                }
-            }
-
-
-        }
-
-        private void CreatePDF_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-       
 
         
        

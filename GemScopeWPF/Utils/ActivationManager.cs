@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GemScopeActivation;
+using Microsoft.Win32;
 namespace GemScopeWPF.Utils
 {
     public class ActivationManager
@@ -56,6 +57,64 @@ namespace GemScopeWPF.Utils
 
             
             
+        }
+        public string GetKey()
+        {
+            Activation activation = new Activation();
+
+            return SettingsManager.ReadSetting("ActivationKey");
+
+
+        }
+        public bool IsExipred()
+        {
+
+            int days= CountDays();
+
+            if (days > 30)
+            {
+                return true;
+            }
+           
+
+            return false;
+        }
+        public int CountDays() {
+            DateTime daystart = DateTime.Now;
+            RegistryKey days = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\GEMSCOPE");
+            if (days != null)
+            {
+                string dl = (string)days.GetValue("dl");
+
+                if (dl != null)
+                {
+                    daystart = DateTime.Parse(dl);
+                }
+                else
+                {
+                    days.SetValue("dl", DateTime.UtcNow);
+                }
+
+                days.Close();
+
+            }
+
+           // daystart = DateTime.Now.AddDays(-45);
+
+            
+
+            Registry.LocalMachine.Flush();
+           
+            DateTime newDate = DateTime.Now;
+
+            // Difference in days, hours, and minutes.
+            TimeSpan ts = newDate - daystart;
+            // Difference in days.
+            int differenceInDays = ts.Days;
+
+            return differenceInDays;
+            
+        
         }
     }
 }

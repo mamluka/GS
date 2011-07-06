@@ -126,11 +126,13 @@ namespace GemScopeWPF
 				{
 					infopart.Title = (string)panel.Children.OfType<TextBox>().SingleOrDefault().Tag;
 					infopart.Value = panel.Children.OfType<TextBox>().SingleOrDefault().Text;
+                    infopart.TitleForReport = (string)panel.Children.OfType<Label>().SingleOrDefault().Content;
 				}
 				else if (panel.Children.OfType<ComboBox>().SingleOrDefault() != null) 
 				{
 					infopart.Title = (string)panel.Children.OfType<ComboBox>().SingleOrDefault().Tag;
 					infopart.Value = (string)((ComboBoxItem)panel.Children.OfType<ComboBox>().SingleOrDefault().SelectedItem).Tag;
+                    infopart.TitleForReport = (string)panel.Children.OfType<Label>().SingleOrDefault().Content;
 				}
 				
 

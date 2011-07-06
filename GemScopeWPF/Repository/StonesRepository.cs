@@ -71,7 +71,8 @@ namespace GemScopeWPF.Repository
                                     select new StoneInfoPart
                                     {
                                         Title = info.Attribute("title").Value,
-                                        Value = info.Value
+                                        Value = info.Value,
+                                        TitleForReport=info.Attribute("titleforreport").Value
                                     };
                     
 
@@ -143,6 +144,7 @@ namespace GemScopeWPF.Repository
                             from infopart in infoparts
                             select new XElement("info",
                                 new XAttribute("title", infopart.Title),
+                                 new XAttribute("titleforreport", infopart.TitleForReport),
                                 new XElement("value", new XCData(infopart.Value)))
                                 ));
 
@@ -192,6 +194,7 @@ namespace GemScopeWPF.Repository
                             from infopart in infoparts
                             select new XElement("info",
                                 new XAttribute("title", infopart.Title),
+                                new XAttribute("titleforreport", infopart.TitleForReport),
                                 new XElement("value", new XCData(infopart.Value)))
                                 ));
 
@@ -220,6 +223,15 @@ namespace GemScopeWPF.Repository
             Diamond diamond = new Diamond();
             diamond.Filename = filename;
             diamond.FullFilePath = Path.Combine(this.XmlFilePath, filename);
+            if (Path.GetExtension(filename) == ".jpg")
+            {
+                diamond.MediaType = 1;
+            }
+            else
+            {
+                diamond.MediaType = 2;
+            }
+            
 
             return diamond;
 
@@ -259,7 +271,10 @@ namespace GemScopeWPF.Repository
                     q.Add(from infopart in infoparts
                           select new XElement("info",
                               new XAttribute("title", infopart.Title),
+                              new XAttribute("titleforreport", infopart.TitleForReport),
                               new XElement("value", new XCData(infopart.Value)))
+
+
                             );
                 }
 

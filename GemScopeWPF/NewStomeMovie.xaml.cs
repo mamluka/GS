@@ -103,7 +103,7 @@ namespace GemScopeWPF
 
         }
         private const string CAVEDIT_LIB_NAME = "CAVEditLib.dll";
-        private string mLogPath = "C:\\Log\\Log.txt";
+     //   private string mLogPath = "C:\\Log\\Log.txt";
         private const string LIBAV_PATH = "\\LibAV";
 
         private void SaveDiamond_Click(object sender, RoutedEventArgs e)
@@ -178,11 +178,13 @@ namespace GemScopeWPF
                 {
                     infopart.Title = (string)panel.Children.OfType<TextBox>().SingleOrDefault().Tag;
                     infopart.Value = panel.Children.OfType<TextBox>().SingleOrDefault().Text;
+                    infopart.TitleForReport = (string)panel.Children.OfType<Label>().SingleOrDefault().Content;
                 }
                 else if (panel.Children.OfType<ComboBox>().SingleOrDefault() != null)
                 {
                     infopart.Title = (string)panel.Children.OfType<ComboBox>().SingleOrDefault().Tag;
                     infopart.Value = (string)((ComboBoxItem)panel.Children.OfType<ComboBox>().SingleOrDefault().SelectedItem).Tag;
+                    infopart.TitleForReport = (string)panel.Children.OfType<Label>().SingleOrDefault().Content;
                 }
 
 
@@ -266,6 +268,22 @@ namespace GemScopeWPF
             return isValid;
 
 
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.mediaPlayer.Play();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            this.mediaPlayer.Pause();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            this.mediaPlayer.Stop();
+            this.mediaPlayer.MediaPosition = 0;
         }
     }
 }

@@ -73,18 +73,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="MigraDoc.DocumentObjectModel-WPF">
-      <HintPath>lib\MigraDoc.DocumentObjectModel-WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="MigraDoc.Rendering-WPF">
-      <HintPath>lib\MigraDoc.Rendering-WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="MigraDoc.RtfRendering-WPF">
-      <HintPath>lib\MigraDoc.RtfRendering-WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="PdfSharp-WPF">
-      <HintPath>lib\PdfSharp-WPF.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -116,14 +104,19 @@
     <Compile Include="Options.xaml.cs">
       <DependentUpon>Options.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PDFExport.xaml.cs">
+      <DependentUpon>PDFExport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Print.xaml.cs">
       <DependentUpon>Print.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Repository\BindingTest.cs" />
     <Compile Include="Repository\Diamond.cs" />
     <Compile Include="Repository\Stone.cs" />
     <Compile Include="Repository\StoneInfoPart.cs" />
     <Compile Include="Repository\StonesRepository.cs" />
-    <Compile Include="Sharing\PDFExport.cs" />
+    <Compile Include="Sharing\DocumentPaginatorWrapper.cs" />
+    <Compile Include="Sharing\ExportPDF.cs" />
     <Compile Include="Sharing\SharingUtils.cs" />
     <Compile Include="UI\CaptureMovieProcessFlow.cs" />
     <Compile Include="UI\DragSelectionHelper.cs" />
@@ -168,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Options.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PDFExport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -298,58 +295,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Key.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\buttonbg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\Icons\email.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\Icons\print.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\Icons\skype.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\Icons\start-camera.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\Icons\freeze.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\Icons\capture.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\Icons\pause.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\Icons\play.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\Icons\stop.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\Icons\srtart.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\Icons\cancel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\Icons\end.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\Icons\start.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\about-us.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Media\Icons\pdf.png" />
-    <Resource Include="Media\Icons\email-pdf.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

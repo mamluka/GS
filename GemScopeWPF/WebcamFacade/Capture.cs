@@ -59,6 +59,11 @@ namespace GemScopeWPF.WebcamFacade
         public DsDevice GetCaptureDevice()
         {
 
+            if (MultimediaUtil.VideoInputDevices.Length == 0)
+            {
+                return null;
+            }
+            
             if (SettingsManager.ReadBoolSetting("RunFirstTime"))
             {
                  SettingsManager.UpdateSetting("CaptureDeviceName", MultimediaUtil.VideoInputDevices[0].Name);
@@ -183,13 +188,16 @@ namespace GemScopeWPF.WebcamFacade
             Control.Stop();
             MainWindowView view = MainWindowView.GetInstrance();
             view.CameraStartStopButtonText = "Start";
-            
+            view.CameraStartStopButtonIcon = "/GemScopeWPF;component/Media/Icons/start-camera.png";
+
         }
         public void Play()
         {
             Control.Play();
             MainWindowView view = MainWindowView.GetInstrance();
             view.CameraStartStopButtonText = "Freeze";
+            view.CameraStartStopButtonIcon = "/GemScopeWPF;component/Media/Icons/freeze.png";
+
         }
         public void Pause()
         {

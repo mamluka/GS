@@ -18,6 +18,8 @@ namespace GemScopeWPF.ViewModel
         private bool _cameraControlButtonIsEnabled;
 
         private Visibility _capturebuttonsvis;
+        private string _cameraStartStopButtonIcon;
+        private string _cameraStartStoprVideoRecordingButtonIcon;
 
         public Visibility CaptureButtonsVisibility
         {
@@ -48,6 +50,17 @@ namespace GemScopeWPF.ViewModel
                 RaisePropertyChanged("CameraStartStopButtonText");
             }
         }
+
+        public string CameraStartStopButtonIcon
+        {
+            get { return _cameraStartStopButtonIcon; }
+            set
+            {
+
+                _cameraStartStopButtonIcon = value;
+                RaisePropertyChanged("CameraStartStopButtonIcon");
+            }
+        }
         public string CameraStartStoprVideoRecordingButtonText
         {
             get { return _cameraStartStoprVideoRecordingButtonText; }
@@ -58,6 +71,17 @@ namespace GemScopeWPF.ViewModel
                 RaisePropertyChanged("CameraStartStoprVideoRecordingButtonText");
             }
         }
+
+        public string CameraStartStoprVideoRecordingButtonIcon
+        {
+            get { return _cameraStartStoprVideoRecordingButtonIcon; }
+            set
+            {
+
+                _cameraStartStoprVideoRecordingButtonIcon = value;
+                RaisePropertyChanged("CameraStartStoprVideoRecordingButtonIcon");
+            }
+        }
         
         
         public event PropertyChangedEventHandler PropertyChanged;
@@ -65,7 +89,10 @@ namespace GemScopeWPF.ViewModel
         public MainWindowView()
         {
             CameraStartStopButtonText = "Start Camera";
-            CameraStartStoprVideoRecordingButtonText = "Start Recording";
+            CameraStartStoprVideoRecordingButtonText = "Start\nRecording";
+
+            CameraStartStopButtonIcon = "/GemScopeWPF;component/Media/Icons/freeze.png";
+            CameraStartStoprVideoRecordingButtonIcon = "/GemScopeWPF;component/Media/Icons/start.png";
 
             CaptureButtonsVisibility = Visibility.Hidden;
 
@@ -104,16 +131,19 @@ namespace GemScopeWPF.ViewModel
         {
             if ((value.State == CaptureMovieProcessFlowStates.Recording || value.State == CaptureMovieProcessFlowStates.CountingDownTillRecording))
             {
-                CameraStartStoprVideoRecordingButtonText = "Pause Recording";
-                
+                CameraStartStoprVideoRecordingButtonText = "Pause\nRecording";
+                CameraStartStoprVideoRecordingButtonIcon = "/GemScopeWPF;component/Media/Icons/pause.png";
+
             }
             else if ((value.State == CaptureMovieProcessFlowStates.PausedRecording || value.State == CaptureMovieProcessFlowStates.PausedCountingDownTillRecording))
             {
-                CameraStartStoprVideoRecordingButtonText = "Continue Recording";
+                CameraStartStoprVideoRecordingButtonText = "Continue\nRecording";
+                CameraStartStoprVideoRecordingButtonIcon = "/GemScopeWPF;component/Media/Icons/start.png";
             }
             else
             {
-                CameraStartStoprVideoRecordingButtonText = "Start Recording";
+                CameraStartStoprVideoRecordingButtonText = "Start\nRecording";
+                CameraStartStoprVideoRecordingButtonIcon = "/GemScopeWPF;component/Media/Icons/start.png";
 
             }
            

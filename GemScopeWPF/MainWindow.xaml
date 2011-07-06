@@ -17,6 +17,12 @@
             </StackPanel>
         </DataTemplate>
 
+        <Style x:Key="ToolbarButtons" TargetType="{x:Type Button}" >
+            <Setter Property="Width" Value="122" />
+            <Setter Property="Height" Value="42" />
+        </Style>
+
+
         <Style x:Key="ToolBarDropDownButtonStyle" TargetType="{x:Type CUI:DropDownButton}">
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
             <Setter Property="BorderThickness" Value="1,1,1,1"/>
@@ -108,14 +114,12 @@
                 <DockPanel>
                     <Menu IsMainMenu="True">
                         <MenuItem Header="File">
-                            <MenuItem Header="Capture Image..."></MenuItem>
-                            <MenuItem Header="Capture Movie..."></MenuItem>
                             <MenuItem Header="Options..." Click="ShowOptionsMenu_Click" ></MenuItem>
                             <Separator></Separator>
-                            <MenuItem Header="Exit"></MenuItem>
+                            <MenuItem Header="Exit" Click="ExitApplication_Click"></MenuItem>
                         </MenuItem>
                         <MenuItem Header="Help">
-                            <MenuItem Header="About"></MenuItem>
+                            <MenuItem Header="About" Click="About_Click" ></MenuItem>
                             
                             <Separator></Separator>
                             <MenuItem Header="Licence" Click="Licence_Click"></MenuItem>
@@ -127,16 +131,59 @@
            
                  <ToolBar Name="toolBar1" Background="#d6d6d6" BorderThickness="0,0,0,1" BorderBrush="black" ToolBarTray.IsLocked="True">
 
-                <Button Width="60" Height="60" Name="SendEmail" Click="SendEmail_Click">
-                    <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="5" >Email</TextBlock>
+             <Button Name="SendEmail" Click="SendEmail_Click" Style="{StaticResource ToolbarButtons}">
+                  <Button.Background>
+                 <ImageBrush ImageSource="/GemScopeWPF;component/Media/buttonbg.png" />
+                  </Button.Background>
+                  <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="122" Height="42">
+                 <Image Source="/GemScopeWPF;component/Media/Icons/email.png" Width="32" Height="32" Margin="2,2,10,5" VerticalAlignment="Top"></Image>
+                 <TextBlock VerticalAlignment="Center" Margin="0,0,0,5">Email</TextBlock>
+                  </StackPanel>
+             </Button>
+
+
+                <Button  Click="ViewPrintMenu_Click" Style="{StaticResource ToolbarButtons}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/GemScopeWPF;component/Media/buttonbg.png" />
+                    </Button.Background>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="122" Height="42">
+                        <Image Source="/GemScopeWPF;component/Media/Icons/print.png" Width="32" Height="32" Margin="2,2,10,5" VerticalAlignment="Top"></Image>
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,0,5">Print</TextBlock>
+                    </StackPanel>
+                    
                 </Button>
-                <Button Width="60" Height="60" Click="ViewPrintMenu_Click">
-                    <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="5">Print</TextBlock>
-                </Button>
-                <Button Width="60" Height="60" Click="OpenSkype_Click">
-                    <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="5">Skype</TextBlock>
+                <Button  Click="OpenSkype_Click" Style="{StaticResource ToolbarButtons}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/GemScopeWPF;component/Media/buttonbg.png" />
+                    </Button.Background>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="122" Height="42">
+                        <Image Source="/GemScopeWPF;component/Media/Icons/skype.png" Width="32" Height="32" Margin="2,2,10,5" VerticalAlignment="Top"></Image>
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,0,5">Skype</TextBlock>
+                    </StackPanel>
+  
                 </Button>
 
+
+
+                <Button   Click="CreatePDF_Click" Style="{StaticResource ToolbarButtons}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/GemScopeWPF;component/Media/buttonbg.png" />
+                    </Button.Background>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="122" Height="42">
+                        <Image Source="/GemScopeWPF;component/Media/Icons/pdf.png" Width="32" Height="32" Margin="2,2,10,5" VerticalAlignment="Top"></Image>
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,0,5">Save PDF</TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <Button  Click="EmailPDF_Click" Style="{StaticResource ToolbarButtons}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/GemScopeWPF;component/Media/buttonbg.png" />
+                    </Button.Background>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="122" Height="42">
+                        <Image Source="/GemScopeWPF;component/Media/Icons/email-pdf.png" Width="32" Height="32" Margin="2,2,10,5" VerticalAlignment="Top"></Image>
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,0,5">Email PDF</TextBlock>
+                    </StackPanel>
+                </Button>
 
                 <CUI:DropDownButton x:Name="ddb1" Width="100"
                                          Text="Sort By..."
@@ -157,10 +204,7 @@
                    </CUI:DropDownButton.DropDownContextMenu>
                 </CUI:DropDownButton>
 
-                <Button Width="100" Height="60" Name="CreatePDF" Click="CreatePDF_Click">
-                    <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="5" >Create PDF...</TextBlock>
-                </Button>
-
+                
 
 
             </ToolBar>
@@ -251,22 +295,54 @@
                 </Border>
                 <Rectangle Height="5" Fill="Gray" Stroke="black" StrokeThickness="1"></Rectangle>
                 <ToolBar Background="#d6d6d6" BorderThickness="0,0,0,1" BorderBrush="black" ToolBarTray.IsLocked="True" >
-                    <Button Height="60" Margin="5" Width="100" Click="StartStopCamera_Click"  Name="StartStopCamera" IsEnabled="{Binding CameraControlButtonIsEnabled}">
-                        <TextBlock Text="{Binding CameraStartStopButtonText}"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <Button Style="{StaticResource ToolbarButtons}" Click="StartStopCamera_Click"  Name="StartStopCamera" IsEnabled="{Binding CameraControlButtonIsEnabled}">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/GemScopeWPF;component/Media/buttonbg.png" />
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="122" Height="42">
+                            <Image Source="{Binding CameraStartStopButtonIcon}" Width="32" Height="32" Margin="2,2,10,5" VerticalAlignment="Top"></Image>
+                            <TextBlock VerticalAlignment="Center" Margin="0,0,0,5" Text="{Binding CameraStartStopButtonText}"></TextBlock>
+                        </StackPanel>
+                        
                     </Button>
-                    
-                    <Button Height="60" Click="CaptureNewStone_Click"  Margin="5" Width="100" >
-                        <TextBlock Text="Capture image"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+
+                    <Button Style="{StaticResource ToolbarButtons}" Click="CaptureNewStone_Click"   >
+                        <Button.Background>
+                            <ImageBrush ImageSource="/GemScopeWPF;component/Media/buttonbg.png" />
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="122" Height="42">
+                            <Image Source="/GemScopeWPF;component/Media/Icons/capture.png" Width="32" Height="32" Margin="2,2,10,5" VerticalAlignment="Top"></Image>
+                            <TextBlock VerticalAlignment="Center" Margin="0,0,0,5" Text="Capture"></TextBlock>
+                        </StackPanel>
                     </Button>
                     <Separator></Separator>
-                    <Button Height="60" Click="CaptureMovie_Click"  Margin="5" Width="150" >
-                        <TextBlock Text="{Binding CameraStartStoprVideoRecordingButtonText}"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <Button  Click="CaptureMovie_Click"  Style="{StaticResource ToolbarButtons}" >
+                        <Button.Background>
+                            <ImageBrush ImageSource="/GemScopeWPF;component/Media/buttonbg.png" />
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="122" Height="42">
+                            <Image Source="{Binding CameraStartStoprVideoRecordingButtonIcon}" Width="32" Height="32" Margin="2,2,10,5" VerticalAlignment="Top"></Image>
+                            <TextBlock VerticalAlignment="Center" Margin="0,0,0,5" Text="{Binding CameraStartStoprVideoRecordingButtonText}"  ></TextBlock>
+                        </StackPanel>
+                      
                     </Button>
-                    <Button Height="60" Click="CaptureMovieEnd_Click"  Margin="5" Width="100" Name="CaptureMovieEnd" Visibility="{Binding CaptureButtonsVisibility}" >
-                        <TextBlock Text="End Recording"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <Button Click="CaptureMovieEnd_Click"  Name="CaptureMovieEnd" Visibility="{Binding CaptureButtonsVisibility}" Style="{StaticResource ToolbarButtons}" >
+                        <Button.Background>
+                            <ImageBrush ImageSource="/GemScopeWPF;component/Media/buttonbg.png" />
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="122" Height="42">
+                            <Image Source="/GemScopeWPF;component/Media/Icons/end.png" Width="32" Height="32" Margin="2,2,10,5" VerticalAlignment="Top"></Image>
+                            <TextBlock VerticalAlignment="Center" Margin="0,0,0,5" Text="End"></TextBlock>
+                        </StackPanel>
                     </Button>
-                    <Button Height="60" Click="CaptureMovieCancel_Click"  Margin="5" Width="100" Name="CaptureMovieCancel" Visibility="{Binding CaptureButtonsVisibility}" >
-                        <TextBlock Text="Cancel Recording"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <Button Click="CaptureMovieCancel_Click"  Style="{StaticResource ToolbarButtons}" Name="CaptureMovieCancel" Visibility="{Binding CaptureButtonsVisibility}" >
+                        <Button.Background>
+                            <ImageBrush ImageSource="/GemScopeWPF;component/Media/buttonbg.png" />
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="122" Height="42">
+                            <Image Source="/GemScopeWPF;component/Media/Icons/cancel.png" Width="32" Height="32" Margin="2,2,10,5" VerticalAlignment="Top"></Image>
+                            <TextBlock VerticalAlignment="Center" Margin="0,0,0,5" Text="Cancel"></TextBlock>
+                        </StackPanel>
                     </Button>
                 </ToolBar>
                 

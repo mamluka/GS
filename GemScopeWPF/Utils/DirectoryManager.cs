@@ -69,12 +69,14 @@ namespace GemScopeWPF.Utils
             {
                 if (this.IsDefaultFolderExists())
                 {
+                    this.SaveHomeFolder(DefaultHomeFolder);
                     return DefaultHomeFolder;
                 }
                 else
                 {
                     if (this.CreateDefaultFolder())
                     {
+                        this.SaveHomeFolder(DefaultHomeFolder);
                         return DefaultHomeFolder;
                     }
                     else

@@ -28,7 +28,44 @@ namespace GemScopeWPF
         {
             Activation activation = new Activation();
             this.ActivationCode.Text = activation.GetActivationCode();
+
+             ActivationManager am = ActivationManager.GetInstance();
+
+             this.Key.Text = am.GetKey();
+
+            if (am.ActivationStatus())
+            {
+                this.lbl_left.Visibility = Visibility.Collapsed;
+                this.Key.IsEnabled = false;
+            }
+            else
+            {
+                int daysleft = 30 - am.CountDays();
+
+
+                if (daysleft > 0)
+                {
+                    this.lbl_left.Content = "Unregistered version you have " + daysleft.ToString() + " days left";
+                }
+                else
+                {
+                    this.lbl_left.Content = "Please register you have used your 30 days trial period";
+                }
+
+
+            }
             
+        }
+
+        private void Window_Closed(object sender, RoutedEventArgs e)
+        {
+            ActivationManager am = ActivationManager.GetInstance();
+            if (am.IsExipred())
+            {
+                MessageBox.Show("Please register you have used your 30 days trial period\nThe application will now close");
+                Application.Current.Shutdown();
+            }
+
         }
 
         private void TryLater_Click(object sender, RoutedEventArgs e)
@@ -57,6 +94,11 @@ namespace GemScopeWPF
             }
 
             
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+
         }
     }
 }

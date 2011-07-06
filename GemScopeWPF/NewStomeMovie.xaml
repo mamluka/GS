@@ -3,6 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:DirectShowControls="clr-namespace:WPFMediaKit.DirectShow.Controls;assembly=WPFMediaKit"
         Title="NewStomeMovie" Height="598" Width="1108" Loaded="Window_Loaded"  >
+    <Window.Resources>
+        <Style x:Key="ToolbarButtons" TargetType="{x:Type Button}" >
+            <Setter Property="Width" Value="122" />
+            <Setter Property="Height" Value="42" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <StackPanel Orientation="Horizontal" Margin="10">
             
@@ -17,9 +23,38 @@
                                                     SpeedRatio="0.5"
                                                     Loop="False" Width="640" Height="480"/>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                    <Button 
-                            Command="DirectShowControls:MediaElementBase.TogglePlayPauseCommand"
-                            CommandTarget="{Binding ElementName=mediaPlayer}" Height="45" Width="103">Preview Movie
+                   
+                    <Button Style="{StaticResource ToolbarButtons}" Click="Button_Click_1" >
+                        <Button.Background>
+                            <ImageBrush ImageSource="/GemScopeWPF;component/Media/buttonbg.png"/>
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="122" Height="42">
+                            <Image Source="/GemScopeWPF;component/Media/Icons/play.png" Width="32" Height="32" Margin="2,2,10,5" VerticalAlignment="Top"></Image>
+                            <TextBlock VerticalAlignment="Center" Margin="0,0,0,5" Text="Play"></TextBlock>
+                        </StackPanel>
+
+                    </Button>
+
+                    <Button Style="{StaticResource ToolbarButtons}" Click="Button_Click_2">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/GemScopeWPF;component/Media/buttonbg.png" />
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="122" Height="42">
+                            <Image Source="/GemScopeWPF;component/Media/Icons/pause.png" Width="32" Height="32" Margin="2,2,10,5" VerticalAlignment="Top"></Image>
+                            <TextBlock VerticalAlignment="Center" Margin="0,0,0,5" Text="Pause"></TextBlock>
+                        </StackPanel>
+
+                    </Button>
+
+                    <Button Style="{StaticResource ToolbarButtons}" Click="Button_Click_3" >
+                        <Button.Background>
+                            <ImageBrush ImageSource="/GemScopeWPF;component/Media/buttonbg.png" />
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="122" Height="42">
+                            <Image Source="/GemScopeWPF;component/Media/Icons/stop.png" Width="32" Height="32" Margin="2,2,10,5" VerticalAlignment="Top"></Image>
+                            <TextBlock VerticalAlignment="Center" Margin="0,0,0,5" Text="Stop"></TextBlock>
+                        </StackPanel>
+
                     </Button>
                 </StackPanel>
 
@@ -218,11 +253,11 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,5,5">
                         <Label Width="100" >Price</Label>
-                        <TextBox Width="150" Tag="Price"></TextBox>
+                        <TextBox Width="150" Tag="Price">0</TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,5,5">
                         <Label Width="100" >Local ID</Label>
-                        <TextBox Width="150" Tag="LocalID"></TextBox>
+                        <TextBox Width="150" Tag="LocalID">NoID</TextBox>
                     </StackPanel>
                 </StackPanel>
 
