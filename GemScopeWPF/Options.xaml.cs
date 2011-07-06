@@ -94,6 +94,7 @@ namespace GemScopeWPF
             DirectoryManager dm = DirectoryManager.GetInstance();
             this.txt_repositoryfolder.Text = dm.GetHomeFolderFromSettings();
 
+            //test commit
             string device = SettingsManager.ReadSetting("CaptureDeviceName");
 
             this.DeviceCombo.SelectedIndex = MultimediaUtil.VideoInputDevices.ToList().FindIndex(m => m.Name == device);
