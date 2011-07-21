@@ -55,60 +55,76 @@ namespace GemScopeWPF
             //webcam.InitializeWebCam(ref VideoView);
             //webcam.Start();
 
-            ActivationManager am = new ActivationManager();
-            am.PresistActivation();
-           // am.IsExipred();
-
-            Capture capture = Capture.GetInstance();
-            capture.SetCaptureDeviceWPFControl(this.videoElement);
-            //
-           // capture.Stop();
-          //  videoElement2.VideoCaptureDevice = WPFMediaKit.DirectShow.Controls.MultimediaUtil.VideoInputDevices[1];
-            
-
-
-           // Point rp = this.VideoBorder.TransformToAncestor(this).Transform(new Point(0, 0));
-
-            //folder view
-
-            StonesView.ViewControl = ViewControl;
-            DirectoryManager dm = DirectoryManager.GetInstance();
-
-            string path = dm.GetHomeFolder();
-
-            FolderBrowser fb = FolderBrowser.GetInstance();
-
-            fb.SetFolderControl(this.FolderBrowserTree);
-            fb.AddItemClickEvents();
-            fb.Init(path);
-
-           
-
-            
-            StonesView.StoneInfoDisplayControl = StoneInfo;
-
-            StonesView.InitStonesView();
-
-            StonesView.LoadImagesToImageView(path);
-
-            if (SettingsManager.ReadBoolSetting("RunFirstTime"))
+            try
             {
-                //TODO add here things to run the first time
-                //Options options = new Options();
-                //options.Owner = this;
-                //options.Show();
 
-                SettingsManager.WriteBoolSetting("RunFirstTime", false);
 
+
+
+                ActivationManager am = new ActivationManager();
+                am.PresistActivation();
+                // am.IsExipred();
+
+                Capture capture = Capture.GetInstance();
+                capture.SetCaptureDeviceWPFControl(this.videoElement);
+
+
+                //
+                // capture.Stop();
+                //  videoElement2.VideoCaptureDevice = WPFMediaKit.DirectShow.Controls.MultimediaUtil.VideoInputDevices[1];
+
+
+
+                // Point rp = this.VideoBorder.TransformToAncestor(this).Transform(new Point(0, 0));
+
+                //folder view
+
+                StonesView.ViewControl = ViewControl;
+                DirectoryManager dm = DirectoryManager.GetInstance();
+
+                string path = dm.GetHomeFolder();
+
+                FolderBrowser fb = FolderBrowser.GetInstance();
+
+                fb.SetFolderControl(this.FolderBrowserTree);
+                fb.AddItemClickEvents();
+                fb.Init(path);
+
+
+
+
+                StonesView.StoneInfoDisplayControl = StoneInfo;
+
+                StonesView.InitStonesView();
+
+                StonesView.LoadImagesToImageView(path);
+
+                if (SettingsManager.ReadBoolSetting("RunFirstTime"))
+                {
+                    //TODO add here things to run the first time
+                    //Options options = new Options();
+                    //options.Owner = this;
+                    //options.Show();
+
+                    SettingsManager.WriteBoolSetting("RunFirstTime", false);
+
+                }
+
+
+
+                CaptureMovieProcessFlow flow = CaptureMovieProcessFlow.GetInstance();
+                flow.TextBlock = this.MovieFlowTimerText;
+                flow.CaptureFacede = capture;
+
+               
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.StackTrace);
 
-           
-
-            CaptureMovieProcessFlow flow = CaptureMovieProcessFlow.GetInstance();
-            flow.TextBlock = this.MovieFlowTimerText;
-            flow.CaptureFacede = capture;
-            
-
+                throw;
+            }
             
         }
 

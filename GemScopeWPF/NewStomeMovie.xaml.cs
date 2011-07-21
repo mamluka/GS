@@ -108,105 +108,138 @@ namespace GemScopeWPF
 
         private void SaveDiamond_Click(object sender, RoutedEventArgs e)
         {
-            StonesRepository rep = new StonesRepository(FolderUponCaptureEvent);
 
-            //Create the infoparts from input controls
-
-            if (this.ValidateUserInput() == false)
+            try
             {
-                MessageBox.Show("Filename,Stonetype,Stone Weight,Clarity and color are mendatory fields...");
-                return;
-            }
+                StonesRepository rep = new StonesRepository(FolderUponCaptureEvent);
 
-            string filename = Path.Combine(FolderUponCaptureEvent, this.Filename.Text);
-            filename = Path.ChangeExtension(filename, "mp4");
+                //Create the infoparts from input controls
 
-            if (rep.IsStoneExists(filename) && this.EditMode == false)
-            {
-                MessageBoxResult result = MessageBox.Show("The filename already exists, do you want to override the existing file", "File exists", MessageBoxButton.YesNo);
-                if (result == MessageBoxResult.No)
+                if (this.ValidateUserInput() == false)
                 {
+                    MessageBox.Show("Filename,Stonetype,Stone Weight,Clarity and color are mendatory fields...");
                     return;
                 }
-            }
 
-            if (!String.IsNullOrWhiteSpace(TempFileName))
-            {
-                ICAVConverter converter = new CAVConverter();
+                string filename = Path.Combine(FolderUponCaptureEvent, this.Filename.Text);
+                filename = Path.ChangeExtension(filename, "mp4");
 
-                converter.SetLicenseKey("orna@diamondsview.com", "62A80CE3A6DB3F755C8C7478D44332E5928296AC08E61FCCD052D464049EDDEFCE62B2ED069F1396AC27F7DA120E6A3FDE982ACA8B49A4E8735552303198E03250EFE9D36E9E5349D2E289FF18D6C919CAB81199B4B24B13ABDF70CBB53605C844B1ED2C4164D08B1B4392C526C3D49E4100C1399C052C986BA57392042AC468BF0DDFD7BA5B12AFC4F2FFC21F9DF83D75C054DC6DBC198B091AD0E8AFD49D7A8CBA1E6B1BEA6BE3E0A3B41DA51B79E0678A7B675D3183618229AF2D50650A8505E9EA106E8507156E53ECA07973D883152F3CF4A75EBA57576B50A56117E2B129C5734150D552B7519D28AA7368895C740444BFEC403C041F4BA207F1258786");
-
-                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-
-                string libPath = AppDomain.CurrentDomain.BaseDirectory + "\\" + CAVEDIT_LIB_NAME;
-                string regsvr32Path = Environment.SystemDirectory + "\\regsvr32.exe";
-
-                startInfo.Arguments = "\"" + libPath + "\"" + " /s";
-                startInfo.FileName = regsvr32Path;
-
-                System.Diagnostics.Process regProcess = System.Diagnostics.Process.Start(startInfo);
-                regProcess.WaitForExit();
-
-                converter.LoadAVLib(AppDomain.CurrentDomain.BaseDirectory + LIBAV_PATH);
-
-                converter.OutputOptions = new COutputOptions();
-
-                converter.OutputOptions.FrameSize = "640x480";
-                //Set output video bitrate
-                converter.OutputOptions.VideoBitrate = 400000;
-
-
-
-                // converter//.LogPath = mLogPath;
-
-                //  converter.LogLevel = CLogLevel.cllInfo;
-
-                converter.AddTask(TempFileName, filename);
-
-                converter.Start(1);
-                
-               // File.Move(TempFileName, filename);
-            }
-            
-
-            List<StoneInfoPart> infoparts = new List<StoneInfoPart>();
-
-            foreach (StackPanel panel in this.InfoPartsInputsContainer.Children)
-            {
-                StoneInfoPart infopart = new StoneInfoPart();
-                if (panel.Children.OfType<TextBox>().SingleOrDefault() != null)
+                if (rep.IsStoneExists(filename) && this.EditMode == false)
                 {
-                    infopart.Title = (string)panel.Children.OfType<TextBox>().SingleOrDefault().Tag;
-                    infopart.Value = panel.Children.OfType<TextBox>().SingleOrDefault().Text;
-                    infopart.TitleForReport = (string)panel.Children.OfType<Label>().SingleOrDefault().Content;
-                }
-                else if (panel.Children.OfType<ComboBox>().SingleOrDefault() != null)
-                {
-                    infopart.Title = (string)panel.Children.OfType<ComboBox>().SingleOrDefault().Tag;
-                    infopart.Value = (string)((ComboBoxItem)panel.Children.OfType<ComboBox>().SingleOrDefault().SelectedItem).Tag;
-                    infopart.TitleForReport = (string)panel.Children.OfType<Label>().SingleOrDefault().Content;
+                    MessageBoxResult result = MessageBox.Show("The filename already exists, do you want to override the existing file", "File exists", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.No)
+                    {
+                        return;
+                    }
                 }
 
+                if (!String.IsNullOrWhiteSpace(TempFileName))
+                {
+                    ICAVConverter converter = new CAVConverter();
 
-                infoparts.Add(infopart);
+                    converter.SetLicenseKey("orna@diamondsview.com", "62A80CE3A6DB3F755C8C7478D44332E5928296AC08E61FCCD052D464049EDDEFCE62B2ED069F1396AC27F7DA120E6A3FDE982ACA8B49A4E8735552303198E03250EFE9D36E9E5349D2E289FF18D6C919CAB81199B4B24B13ABDF70CBB53605C844B1ED2C4164D08B1B4392C526C3D49E4100C1399C052C986BA57392042AC468BF0DDFD7BA5B12AFC4F2FFC21F9DF83D75C054DC6DBC198B091AD0E8AFD49D7A8CBA1E6B1BEA6BE3E0A3B41DA51B79E0678A7B675D3183618229AF2D50650A8505E9EA106E8507156E53ECA07973D883152F3CF4A75EBA57576B50A56117E2B129C5734150D552B7519D28AA7368895C740444BFEC403C041F4BA207F1258786");
 
+                    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+
+                    string libPath = AppDomain.CurrentDomain.BaseDirectory + "\\" + CAVEDIT_LIB_NAME;
+                    string regsvr32Path = Environment.SystemDirectory + "\\regsvr32.exe";
+
+                    startInfo.Arguments = "\"" + libPath + "\"" + " /s";
+                    startInfo.FileName = regsvr32Path;
+
+                    try
+                    {
+                        System.Diagnostics.Process regProcess = System.Diagnostics.Process.Start(startInfo);
+                        regProcess.WaitForExit();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        throw;
+                    }
+
+
+
+                    converter.LoadAVLib(AppDomain.CurrentDomain.BaseDirectory + LIBAV_PATH);
+
+                    converter.OutputOptions = new COutputOptions();
+
+                    converter.OutputOptions.FrameSize = "640x480";
+                    //Set output video bitrate
+
+                    var bitrate = Convert.ToInt32(((ComboBoxItem)this.cmb_quality.SelectedItem).Tag);
+                    converter.OutputOptions.VideoBitrate = bitrate;
+
+
+
+                    // converter//.LogPath = mLogPath;
+
+                    //  converter.LogLevel = CLogLevel.cllInfo;
+
+                    try
+                    {
+                        converter.AddTask(TempFileName, filename);
+                        converter.Start(1);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        throw;
+                    }
+
+
+
+                    // File.Move(TempFileName, filename);
+                }
+
+
+                List<StoneInfoPart> infoparts = new List<StoneInfoPart>();
+
+                foreach (StackPanel panel in this.InfoPartsInputsContainer.Children)
+                {
+                    StoneInfoPart infopart = new StoneInfoPart();
+                    if (panel.Children.OfType<TextBox>().SingleOrDefault() != null)
+                    {
+                        infopart.Title = (string)panel.Children.OfType<TextBox>().SingleOrDefault().Tag;
+                        infopart.Value = panel.Children.OfType<TextBox>().SingleOrDefault().Text;
+                        infopart.TitleForReport = (string)panel.Children.OfType<Label>().SingleOrDefault().Content;
+                    }
+                    else if (panel.Children.OfType<ComboBox>().SingleOrDefault() != null)
+                    {
+                        infopart.Title = (string)panel.Children.OfType<ComboBox>().SingleOrDefault().Tag;
+                        infopart.Value = (string)((ComboBoxItem)panel.Children.OfType<ComboBox>().SingleOrDefault().SelectedItem).Tag;
+                        infopart.TitleForReport = (string)panel.Children.OfType<Label>().SingleOrDefault().Content;
+                    }
+
+
+                    infoparts.Add(infopart);
+
+                }
+
+                if (this.EditMode)
+                {
+                    rep.UpdateStone(filename, infoparts);
+                }
+                else
+                {
+                    rep.CreateANewStoneMovie(filename, infoparts);
+                }
+
+                //WebCam webcam = WebCam.GetInstance();
+                // webcam.Start();
+
+                StonesView.RefreshView();
+
+                this.Close();
             }
-            
-            if (this.EditMode)
+            catch (Exception ex)
             {
-                rep.UpdateStone(filename, infoparts);
-            }
-            else
-            {
-                rep.CreateANewStoneMovie(filename, infoparts);
+                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.StackTrace);
+                throw;
             }
 
-            //WebCam webcam = WebCam.GetInstance();
-            // webcam.Start();
 
-            StonesView.RefreshView();
-
-            this.Close();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

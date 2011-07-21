@@ -55,35 +55,45 @@ namespace GemScopeWPF
         private void SaveOptions_Click(object sender, RoutedEventArgs e)
         {
 
-            if (Directory.Exists(this.txt_repositoryfolder.Text))
+            try
             {
-                DirectoryManager dm = DirectoryManager.GetInstance();
-                dm.SaveHomeFolder(this.txt_repositoryfolder.Text);
+                if (Directory.Exists(this.txt_repositoryfolder.Text))
+                {
+                    DirectoryManager dm = DirectoryManager.GetInstance();
+                    dm.SaveHomeFolder(this.txt_repositoryfolder.Text);
 
-                FolderBrowser fb = FolderBrowser.GetInstance();
-                fb.ChangeHomeFolder(this.txt_repositoryfolder.Text);
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Invalid path");
-            }
+                    FolderBrowser fb = FolderBrowser.GetInstance();
+                    fb.ChangeHomeFolder(this.txt_repositoryfolder.Text);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid path");
+                }
 
-            //devices
+                //devices
 
-            int deviceid = this.DeviceCombo.SelectedIndex;
+                int deviceid = this.DeviceCombo.SelectedIndex;
 
-            Capture capture = Capture.GetInstance();
+                Capture capture = Capture.GetInstance();
 
-            if (deviceid >= 0)
-            {
-
-                if (MultimediaUtil.VideoInputDevices[deviceid] != null)
+                if (deviceid >= 0)
                 {
 
-                    capture.SetCaptureDevice(MultimediaUtil.VideoInputDevices[deviceid]);
+                    if (MultimediaUtil.VideoInputDevices[deviceid] != null)
+                    {
+
+                        capture.SetCaptureDevice(MultimediaUtil.VideoInputDevices[deviceid]);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.StackTrace);
+                throw;
+            }
+            
 
             
            

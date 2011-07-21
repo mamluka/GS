@@ -15,13 +15,43 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_040F2E7553D12851F25023C4191E3D44"
+        "MsmKey" = "8:_0871857A9D7A327FDDAE06DE3D12306B"
+        "OwnerKey" = "8:_ECE7058AE6DC5E7887D8E7BC0FB42D44"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_0871857A9D7A327FDDAE06DE3D12306B"
         "OwnerKey" = "8:_F6E03C56054A4A6A8D6C3BFF13F8B4FF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_1361C2443395A667FD31090C394B669A"
+        "MsmKey" = "8:_0871857A9D7A327FDDAE06DE3D12306B"
+        "OwnerKey" = "8:_EFA70EDBA395337A2141D8D68AA4A062"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_0A048C7A52D89FA3284B8F76001D1E6D"
+        "OwnerKey" = "8:_F6E03C56054A4A6A8D6C3BFF13F8B4FF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_0A048C7A52D89FA3284B8F76001D1E6D"
+        "OwnerKey" = "8:_EFA70EDBA395337A2141D8D68AA4A062"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_0A048C7A52D89FA3284B8F76001D1E6D"
+        "OwnerKey" = "8:_ECE7058AE6DC5E7887D8E7BC0FB42D44"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1085BE8D00386C9802E64C78939BFD3C"
         "OwnerKey" = "8:_F6E03C56054A4A6A8D6C3BFF13F8B4FF"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -29,12 +59,6 @@
         {
         "MsmKey" = "8:_18A4EBA80B6340F5BE2E7418B8A9CC58"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1CD0799A0233D08DC522399D2B702FAB"
-        "OwnerKey" = "8:_F6E03C56054A4A6A8D6C3BFF13F8B4FF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -51,7 +75,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4172EFBE32026991CA5FDF5F3BEFBE37"
+        "MsmKey" = "8:_47978941F962D7EB7FB50BF70B8F5F1F"
+        "OwnerKey" = "8:_F6E03C56054A4A6A8D6C3BFF13F8B4FF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4E66582E711D3328BF8CDD3D6BCB69AA"
         "OwnerKey" = "8:_F6E03C56054A4A6A8D6C3BFF13F8B4FF"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -69,38 +99,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_65ED4A5C79F43CEC965EAE46FE25F448"
-        "OwnerKey" = "8:_D7386FF4298DF0419034D3A64498602E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_65ED4A5C79F43CEC965EAE46FE25F448"
+        "MsmKey" = "8:_7187FF72C44086FB9416E8C8F1430584"
         "OwnerKey" = "8:_F6E03C56054A4A6A8D6C3BFF13F8B4FF"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_65ED4A5C79F43CEC965EAE46FE25F448"
-        "OwnerKey" = "8:_1CD0799A0233D08DC522399D2B702FAB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7F586FBEDB1772F8B2AE2907AA43A358"
-        "OwnerKey" = "8:_F6E03C56054A4A6A8D6C3BFF13F8B4FF"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7F586FBEDB1772F8B2AE2907AA43A358"
-        "OwnerKey" = "8:_1CD0799A0233D08DC522399D2B702FAB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7F586FBEDB1772F8B2AE2907AA43A358"
-        "OwnerKey" = "8:_D7386FF4298DF0419034D3A64498602E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -111,7 +111,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9A52A8577A009A24CAD6F891E992DB9D"
+        "MsmKey" = "8:_8E87E5E3D0A1F17848E5114C4CCC1896"
         "OwnerKey" = "8:_F6E03C56054A4A6A8D6C3BFF13F8B4FF"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -123,19 +123,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_D7386FF4298DF0419034D3A64498602E"
+        "MsmKey" = "8:_ECE7058AE6DC5E7887D8E7BC0FB42D44"
         "OwnerKey" = "8:_F6E03C56054A4A6A8D6C3BFF13F8B4FF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D7386FF4298DF0419034D3A64498602E"
-        "OwnerKey" = "8:_1CD0799A0233D08DC522399D2B702FAB"
+        "MsmKey" = "8:_ECE7058AE6DC5E7887D8E7BC0FB42D44"
+        "OwnerKey" = "8:_EFA70EDBA395337A2141D8D68AA4A062"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_E8AD4B863E402C7231F47EAED71E8D0F"
+        "MsmKey" = "8:_EFA70EDBA395337A2141D8D68AA4A062"
         "OwnerKey" = "8:_F6E03C56054A4A6A8D6C3BFF13F8B4FF"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -154,37 +154,37 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_040F2E7553D12851F25023C4191E3D44"
+        "OwnerKey" = "8:_1085BE8D00386C9802E64C78939BFD3C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1CD0799A0233D08DC522399D2B702FAB"
+        "OwnerKey" = "8:_EFA70EDBA395337A2141D8D68AA4A062"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D7386FF4298DF0419034D3A64498602E"
+        "OwnerKey" = "8:_ECE7058AE6DC5E7887D8E7BC0FB42D44"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_65ED4A5C79F43CEC965EAE46FE25F448"
+        "OwnerKey" = "8:_0871857A9D7A327FDDAE06DE3D12306B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7F586FBEDB1772F8B2AE2907AA43A358"
+        "OwnerKey" = "8:_0A048C7A52D89FA3284B8F76001D1E6D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4172EFBE32026991CA5FDF5F3BEFBE37"
+        "OwnerKey" = "8:_4E66582E711D3328BF8CDD3D6BCB69AA"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -292,14 +292,76 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_040F2E7553D12851F25023C4191E3D44"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0871857A9D7A327FDDAE06DE3D12306B"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:PdfSharp-WPF, Version=1.31.1789.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_0871857A9D7A327FDDAE06DE3D12306B"
+                    {
+                    "Name" = "8:PdfSharp-WPF.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:PdfSharp-WPF.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_2C8D6BD9D3B049F5AEDBFDC362028BA7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0A048C7A52D89FA3284B8F76001D1E6D"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MigraDoc.DocumentObjectModel-WPF, Version=1.31.3066.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_0A048C7A52D89FA3284B8F76001D1E6D"
+                    {
+                    "Name" = "8:MigraDoc.DocumentObjectModel-WPF.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MigraDoc.DocumentObjectModel-WPF.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_2C8D6BD9D3B049F5AEDBFDC362028BA7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1085BE8D00386C9802E64C78939BFD3C"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:WPFMediaKit, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_040F2E7553D12851F25023C4191E3D44"
+                    "_1085BE8D00386C9802E64C78939BFD3C"
                     {
                     "Name" = "8:WPFMediaKit.dll"
                     "Attributes" = "3:512"
@@ -323,26 +385,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1361C2443395A667FD31090C394B669A"
-            {
-            "SourcePath" = "8:GMFBridge.dll"
-            "TargetName" = "8:GMFBridge.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_2C8D6BD9D3B049F5AEDBFDC362028BA7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:2"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_18A4EBA80B6340F5BE2E7418B8A9CC58"
             {
             "SourcePath" = "8:..\\GemScopeWPF\\bin\\Debug\\LibAV\\avutil-50.dll"
@@ -361,37 +403,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1CD0799A0233D08DC522399D2B702FAB"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MigraDoc.RtfRendering-WPF, Version=1.31.3066.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_1CD0799A0233D08DC522399D2B702FAB"
-                    {
-                    "Name" = "8:MigraDoc.RtfRendering-WPF.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:MigraDoc.RtfRendering-WPF.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_2C8D6BD9D3B049F5AEDBFDC362028BA7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1D55B55D7FA74DEC91F8CBC4FAD6614D"
@@ -434,14 +445,34 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4172EFBE32026991CA5FDF5F3BEFBE37"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_47978941F962D7EB7FB50BF70B8F5F1F"
+            {
+            "SourcePath" = "8:SKYPE4~1.DLL"
+            "TargetName" = "8:SKYPE4~1.DLL"
+            "Tag" = "8:"
+            "Folder" = "8:_2C8D6BD9D3B049F5AEDBFDC362028BA7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:4"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4E66582E711D3328BF8CDD3D6BCB69AA"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:GemScopeActivation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_4172EFBE32026991CA5FDF5F3BEFBE37"
+                    "_4E66582E711D3328BF8CDD3D6BCB69AA"
                     {
                     "Name" = "8:GemScopeActivation.dll"
                     "Attributes" = "3:512"
@@ -505,21 +536,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_65ED4A5C79F43CEC965EAE46FE25F448"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7187FF72C44086FB9416E8C8F1430584"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:PdfSharp-WPF, Version=1.31.1789.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_65ED4A5C79F43CEC965EAE46FE25F448"
-                    {
-                    "Name" = "8:PdfSharp-WPF.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:PdfSharp-WPF.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:GMFBridge.dll"
+            "TargetName" = "8:GMFBridge.dll"
             "Tag" = "8:"
             "Folder" = "8:_2C8D6BD9D3B049F5AEDBFDC362028BA7"
             "Condition" = "8:"
@@ -531,38 +551,7 @@
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7F586FBEDB1772F8B2AE2907AA43A358"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MigraDoc.DocumentObjectModel-WPF, Version=1.31.3066.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_7F586FBEDB1772F8B2AE2907AA43A358"
-                    {
-                    "Name" = "8:MigraDoc.DocumentObjectModel-WPF.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:MigraDoc.DocumentObjectModel-WPF.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_2C8D6BD9D3B049F5AEDBFDC362028BA7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
+            "Register" = "3:2"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
@@ -587,10 +576,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9A52A8577A009A24CAD6F891E992DB9D"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8E87E5E3D0A1F17848E5114C4CCC1896"
             {
-            "SourcePath" = "8:Skype4COM.dll"
-            "TargetName" = "8:Skype4COM.dll"
+            "SourcePath" = "8:CAVEditLib.dll"
+            "TargetName" = "8:CAVEditLib.dll"
             "Tag" = "8:"
             "Folder" = "8:_2C8D6BD9D3B049F5AEDBFDC362028BA7"
             "Condition" = "8:"
@@ -602,7 +591,7 @@
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
-            "Register" = "3:4"
+            "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
@@ -627,14 +616,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D7386FF4298DF0419034D3A64498602E"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_ECE7058AE6DC5E7887D8E7BC0FB42D44"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:MigraDoc.Rendering-WPF, Version=1.31.3066.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_D7386FF4298DF0419034D3A64498602E"
+                    "_ECE7058AE6DC5E7887D8E7BC0FB42D44"
                     {
                     "Name" = "8:MigraDoc.Rendering-WPF.dll"
                     "Attributes" = "3:512"
@@ -658,10 +647,21 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E8AD4B863E402C7231F47EAED71E8D0F"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EFA70EDBA395337A2141D8D68AA4A062"
             {
-            "SourcePath" = "8:CAVEditLib.dll"
-            "TargetName" = "8:CAVEditLib.dll"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MigraDoc.RtfRendering-WPF, Version=1.31.3066.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_EFA70EDBA395337A2141D8D68AA4A062"
+                    {
+                    "Name" = "8:MigraDoc.RtfRendering-WPF.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MigraDoc.RtfRendering-WPF.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2C8D6BD9D3B049F5AEDBFDC362028BA7"
             "Condition" = "8:"
@@ -746,7 +746,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Gemscope Viewer 2"
         "ProductCode" = "8:{34B72444-DEB2-4CBE-913D-4C474E926356}"
-        "PackageCode" = "8:{6505E650-B25C-4913-AD2C-C3524854D594}"
+        "PackageCode" = "8:{5866DD5E-F5B0-4497-A448-09C06BC8B1DA}"
         "UpgradeCode" = "8:{81C079EB-28F3-41A6-960A-7A8F40B4BCF1}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -821,6 +821,36 @@
                     "Transitive" = "11:FALSE"
                         "Keys"
                         {
+                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_F058D61AD6F2498EA02EE99428A15347"
+                            {
+                            "Name" = "8:GEMSCOPE"
+                            "Condition" = "8:"
+                            "AlwaysCreate" = "11:FALSE"
+                            "DeleteAtUninstall" = "11:FALSE"
+                            "Transitive" = "11:FALSE"
+                                "Keys"
+                                {
+                                }
+                                "Values"
+                                {
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_C52EDF00E16041CB8379F494E752BA76"
+                                    {
+                                    "Name" = "8:RunFirstTime"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:1"
+                                    "Value" = "8:1"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_F1CF87992CB04E86A60C9CBA94AB4D8C"
+                                    {
+                                    "Name" = "8:StoneRepXMLFilename"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:1"
+                                    "Value" = "8:stonerep.xml"
+                                    }
+                                }
+                            }
                             "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_F1F9B009977F4910BCE17013DF079997"
                             {
                             "Name" = "8:[Manufacturer]"

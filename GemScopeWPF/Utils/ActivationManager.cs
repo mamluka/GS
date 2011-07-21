@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using GemScopeActivation;
 using Microsoft.Win32;
+using System.Security.AccessControl;
 namespace GemScopeWPF.Utils
 {
     public class ActivationManager
@@ -80,8 +81,16 @@ namespace GemScopeWPF.Utils
             return false;
         }
         public int CountDays() {
+
+
+        
+
             DateTime daystart = DateTime.Now;
-            RegistryKey days = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\GEMSCOPE");
+            RegistryKey days = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\GEMSCOPE");
+           
+           
+
+
             if (days != null)
             {
                 string dl = (string)days.GetValue("dl");

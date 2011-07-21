@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Configuration;
+using Microsoft.Win32;
 
 namespace GemScopeWPF.Utils
 {
@@ -11,28 +12,51 @@ namespace GemScopeWPF.Utils
 
         public static void UpdateSetting(string key,string value ) 
         {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            //config.AppSettings.Settings[key].Value = value;
+            //Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            ////config.AppSettings.Settings[key].Value = value;
 
-            if (config.AppSettings.Settings[key] == null)
+            //if (config.AppSettings.Settings[key] == null)
+            //{
+            //    config.AppSettings.Settings.Add(key, value);
+            //}
+            //else
+            //{
+            //    config.AppSettings.Settings[key].Value = value;
+            //}
+
+            //config.Save(ConfigurationSaveMode.Modified);
+            //ConfigurationManager.RefreshSection("appSettings");
+
+            RegistryKey regkey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\GEMSCOPE");
+
+            if (regkey != null)
             {
-                config.AppSettings.Settings.Add(key, value);
-            }
-            else
-            {
-                config.AppSettings.Settings[key].Value = value;
+                regkey.SetValue(key, value);
+                regkey.Close();
+
             }
 
-            config.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("appSettings");
         }
         public static string ReadSetting(string key)
         {
-            return ConfigurationManager.AppSettings[key];
+            //return ConfigurationManager.AppSettings[key];
+            RegistryKey regkey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\GEMSCOPE");
+
+            string result = String.Empty;
+
+            if (regkey != null)
+            {
+                result = (string)regkey.GetValue(key);
+                regkey.Close();
+
+            }
+
+            return result;
+
         }
         public static bool ReadBoolSetting(string key)
         {
-            if (ConfigurationManager.AppSettings[key] == "1")
+            if (SettingsManager.ReadSetting(key) == "1")
             {
                 return true;
             }

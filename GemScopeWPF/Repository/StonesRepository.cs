@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Xml.Linq;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using GemScopeWPF.Utils;
 
 namespace GemScopeWPF.Repository
 {
@@ -30,7 +31,15 @@ namespace GemScopeWPF.Repository
             StoneInfo = new List<StoneInfoPart>();
             IsExtendedStoneInfoExists = false;
 
-            StoneRepXMLFilenameWithoutPath = ConfigurationManager.AppSettings["StoneRepXMLFilename"];
+
+
+            StoneRepXMLFilenameWithoutPath = SettingsManager.ReadSetting("StoneRepXMLFilename");
+
+            //inforce default
+            if (String.IsNullOrWhiteSpace(StoneRepXMLFilenameWithoutPath))
+            {
+                StoneRepXMLFilenameWithoutPath = "stonerep.xml";
+            }
             
             XmlFile = Path.Combine(path,StoneRepXMLFilenameWithoutPath);
             XmlFilePath = path;

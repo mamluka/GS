@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Management;
+using System.Windows;
 
 namespace GemScopeActivation
 {
@@ -22,7 +23,15 @@ namespace GemScopeActivation
 
             HardDrive hd = list[0];
 
-            string hdserial = hd.SerialNo.Trim().Replace("-",String.Empty).Substring(0,8);
+            string hdserial8 = hd.SerialNo.ToUpper();
+
+            if (hdserial8.Length<8)
+            {
+                hdserial8 = hdserial8 + "ABCDEFGH";
+            }
+
+
+            string hdserial = hdserial8.Trim().Replace("-", String.Empty).Substring(0, 8);
 
             string _BaseString = Encryption.Boring(hdserial);
 

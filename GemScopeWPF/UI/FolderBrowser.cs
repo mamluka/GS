@@ -42,6 +42,10 @@ namespace GemScopeWPF.UI
 
             TreeViewItem item = new TreeViewItem();
             item.Header = Path.GetFileName(path);
+            if (String.IsNullOrWhiteSpace((string)item.Header))
+            {
+                item.Header = Path.GetPathRoot(path);
+            }
             item.Tag = path;
             item.FontWeight = FontWeights.Normal;
             item.Items.Add(dummyNode);
