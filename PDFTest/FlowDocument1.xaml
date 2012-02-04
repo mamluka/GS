@@ -1,0 +1,10 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:local="clr-namespace:PDFTest;assembly=PDFTest"
+              ColumnWidth="400" FontSize="14" FontFamily="Georgia" >
+    <FlowDocument.Resources>
+      
+    </FlowDocument.Resources>
+    <Paragraph>
+        <Bold>{Binding Title}</Bold>
+    </Paragraph>
+</FlowDocument>

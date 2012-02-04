@@ -1,0 +1,60 @@
+﻿<Window x:Class="GemScopeWPF.PDFExport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Data="clr-namespace:GemScopeWPF.Repository" 
+        Title="PDFExport" Height="618" Width="937">
+    <Window.Resources>
+        <Data:BindingTest x:Key="Data">
+            
+        </Data:BindingTest>
+        
+    </Window.Resources>
+    <Grid>
+        <StackPanel >
+            <ToolBar Height="55">
+                
+            </ToolBar>
+        <FlowDocumentScrollViewer
+                    VerticalScrollBarVisibility="Hidden">
+                <FlowDocument>
+                    <Table>
+                        <Table.Columns>
+                            <TableColumn Width="1*"></TableColumn>
+                            <TableColumn Width="1*"></TableColumn>
+                        </Table.Columns>
+                        <TableRowGroup>
+                            <TableRow>
+                                <TableCell>
+                                    <Paragraph>
+                                        <Image Source="{Binding Source={StaticResource Data}, Path=Image}" ></Image>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <List>
+                                        <ListItem>
+                                            <Table >
+                                                <Table.Columns>
+                                                    <TableColumn Width="1*"></TableColumn>
+                                                    <TableColumn Width="1*"></TableColumn>
+                                                </Table.Columns>
+                                                <TableRowGroup>
+                                                    
+                                                   
+                                                </TableRowGroup>
+                                            </Table>
+                                        </ListItem>
+                                    </List>
+                                </TableCell>
+                            </TableRow>
+                        </TableRowGroup>
+                    </Table>
+                    <Paragraph FontSize="11" FontFamily="Arial">
+
+                       
+                        
+                    </Paragraph>
+            </FlowDocument>
+        </FlowDocumentScrollViewer>
+        </StackPanel>
+    </Grid>
+</Window>

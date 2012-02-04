@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6030628D-EE93-4D61-B6BE-8B6AE99F3935}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WPFMediaKit</RootNamespace>
+    <AssemblyName>WPFMediaKit</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <OutputPath>bin\Test\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.0.2000\lib\net35\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DirectShow\Controls\DvdPlayerElement.cs" />
+    <Compile Include="DirectShow\Controls\MediaDetectorElement.cs" />
+    <Compile Include="DirectShow\Interop\amstream.cs" />
+    <Compile Include="DirectShow\Interop\amvideo.cs" />
+    <Compile Include="DirectShow\Interop\atscpsipparser.cs" />
+    <Compile Include="DirectShow\Interop\austream.cs" />
+    <Compile Include="DirectShow\Interop\AxCore.cs" />
+    <Compile Include="DirectShow\Interop\AXExtend.cs" />
+    <Compile Include="DirectShow\Interop\BDAIface.cs" />
+    <Compile Include="DirectShow\Interop\Bdatif.cs" />
+    <Compile Include="DirectShow\Interop\BDATypes.cs" />
+    <Compile Include="DirectShow\Interop\Control.cs" />
+    <Compile Include="DirectShow\Interop\DES.cs" />
+    <Compile Include="DirectShow\Interop\DevEnum.cs" />
+    <Compile Include="DirectShow\Interop\DMODShow.cs" />
+    <Compile Include="DirectShow\Interop\dsattrib.cs" />
+    <Compile Include="DirectShow\Interop\DsUtils.cs" />
+    <Compile Include="DirectShow\Interop\dvbsiparser.cs" />
+    <Compile Include="DirectShow\Interop\DVDIf.cs" />
+    <Compile Include="DirectShow\Interop\DynGraph.cs" />
+    <Compile Include="DirectShow\Interop\encdec.cs" />
+    <Compile Include="DirectShow\Interop\EvCode.cs" />
+    <Compile Include="DirectShow\Interop\GMFBridge.cs" />
+    <Compile Include="DirectShow\Interop\IL21Dec.cs" />
+    <Compile Include="DirectShow\Interop\MediaObj.cs" />
+    <Compile Include="DirectShow\Interop\MediaParam.cs" />
+    <Compile Include="DirectShow\Interop\Misc.cs" />
+    <Compile Include="DirectShow\Interop\Mixerocx.cs" />
+    <Compile Include="DirectShow\Interop\mmstream.cs" />
+    <Compile Include="DirectShow\Interop\mpconfig.cs" />
+    <Compile Include="DirectShow\Interop\Mpeg2Data.cs" />
+    <Compile Include="DirectShow\Interop\mpeg2psiparser.cs" />
+    <Compile Include="DirectShow\Interop\Mpeg2Structs.cs" />
+    <Compile Include="DirectShow\Interop\other.cs" />
+    <Compile Include="DirectShow\Interop\PlayList.cs" />
+    <Compile Include="DirectShow\Interop\QEdit.cs" />
+    <Compile Include="DirectShow\Interop\qnetwork.cs" />
+    <Compile Include="DirectShow\Interop\RegBag.cs" />
+    <Compile Include="DirectShow\Interop\Sbe.cs" />
+    <Compile Include="DirectShow\Interop\Tuner.cs" />
+    <Compile Include="DirectShow\Interop\TvRatings.cs" />
+    <Compile Include="DirectShow\Interop\Uuids.cs" />
+    <Compile Include="DirectShow\Interop\Vidcap.cs" />
+    <Compile Include="DirectShow\Interop\VidPort.cs" />
+    <Compile Include="DirectShow\Interop\Vmr9.cs" />
+    <Compile Include="DirectShow\Interop\VmRender.cs" />
+    <Compile Include="DirectShow\MediaPlayers\DvdPlayer.cs" />
+    <Compile Include="DirectShow\MediaPlayers\MediaDetector.cs" />
+    <Compile Include="DirectShow\MediaPlayers\PropertyPageHelper.cs" />
+    <Compile Include="Threading\WorkDispatcher.cs" />
+    <Compile Include="Threading\WorkDispatcherObject.cs" />
+    <Compile Include="DirectX\Direct3D.cs" />
+    <Compile Include="DirectShow\Controls\D3DRenderer.cs" />
+    <Compile Include="DirectShow\Controls\VideoCaptureElement.cs" />
+    <Compile Include="DirectShow\MediaPlayers\BaseClasses.cs" />
+    <Compile Include="DirectShow\Controls\MediaElementBase.cs" />
+    <Compile Include="DirectShow\Controls\MediaSeekingElement.cs" />
+    <Compile Include="DirectShow\MediaPlayers\MediaSeekingPlayer.cs" />
+    <Compile Include="DirectShow\Controls\MediaUriElement.cs" />
+    <Compile Include="DirectShow\MediaPlayers\MediaUriPlayer.cs" />
+    <Compile Include="DirectShow\Controls\MultimediaUtil.cs" />
+    <Compile Include="DirectShow\MediaPlayers\VideoCapturePlayer.cs" />
+    <Compile Include="Effects\DeeperColor.cs" />
+    <Compile Include="MediaFoundation\EvrPresenter.cs" />
+    <Compile Include="MediaFoundation\Interop\Alt.cs" />
+    <Compile Include="MediaFoundation\Interop\EVR.cs" />
+    <Compile Include="MediaFoundation\Interop\Externs.cs" />
+    <Compile Include="MediaFoundation\Interop\MFIdl.cs" />
+    <Compile Include="MediaFoundation\Interop\MFObjects.cs" />
+    <Compile Include="MediaFoundation\Interop\MFTransform.cs" />
+    <Compile Include="MediaFoundation\Interop\MFUtils.cs" />
+    <Compile Include="MediaFoundation\Interop\misc.cs" />
+    <Compile Include="MediaFoundation\Interop\WMContainer.cs" />
+    <Compile Include="MediaFoundation\MFMediaUriElement.cs" />
+    <Compile Include="MediaFoundation\MFMediaUriPlayer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="DirectShow\Controls\ValueConverters.cs" />
+    <Compile Include="DirectShow\MediaPlayers\Vmr9Allocator.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Effects\DeeperColor.fx" />
+    <Resource Include="Effects\DeeperColor.ps" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\MediaDetectorGeneric.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
