@@ -239,50 +239,22 @@ namespace GemScopeWPF
             this.Close();
         }
 
-        private bool ValidateUserInput()
-        {
-            bool isValid = true;
-
-            string filename = this.Filename.Text;
-            int istonetype = this.StoneType.SelectedIndex;
-
-            string caratweight = this.CaratWeight.Text;
-
-            int icolor = this.StoneColor.SelectedIndex;
-            int iclarity = this.StoneClarity.SelectedIndex;
-
-            //filename required
-
-            if (String.IsNullOrWhiteSpace(filename))
-            {
-                isValid = false;
-            }
-
-            Regex r = new Regex(@"[^/?*:;{}\\]+");
-            isValid = r.IsMatch(filename);
-
-            if (istonetype == 1)
-            {
-                isValid = false;
-            }
-
-            r = new Regex(@"^\d{0,8}(\.\d{1,8})?$");
-            isValid = r.IsMatch(caratweight);
-
-            if (icolor == 0)
-            {
-                isValid = false;
-            }
-
-            if (iclarity == 0)
-            {
-                isValid = false;
-            }
-
-            return isValid;
+       private bool ValidateUserInput()
+       {
+           var isValid = false;
+		    isValid = !String.IsNullOrWhiteSpace(this.LocalID.Text);
+		    isValid = !String.IsNullOrWhiteSpace(this.Filename.Text);
 
 
-        }
+
+		    //filename required
+
+
+		    return isValid;
+
+
+		}
+
 
         private void ImportDetails(object sender, RoutedEventArgs e)
         {

@@ -94,14 +94,14 @@ namespace GemScopeWPF.Repository
                     diamond.FullFilePath = Path.Combine(this.XmlFilePath, file);
                     diamond.MediaType =Convert.ToInt32(q.SingleOrDefault().Attribute("mediatype").Value);
 
-                   var weight = infoparts.Where(m=> m.Title == "CaratWeight").SingleOrDefault<StoneInfoPart>().Value;
-                   var type = infoparts.Where(m => m.Title == "StoneType").SingleOrDefault<StoneInfoPart>().Value;
-                    var color = infoparts.Where(m=> m.Title == "StoneColor").SingleOrDefault<StoneInfoPart>().Value;
-                    var clarity = infoparts.Where(m=> m.Title == "StoneClarity").SingleOrDefault<StoneInfoPart>().Value;
-
-
-
-                    diamond.CompositeDescription = "A " + weight + " Ct. " + color + "/" + clarity + " " + type.ToLower() + " diamond.";
+//                   var weight = infoparts.Where(m=> m.Title == "CaratWeight").SingleOrDefault<StoneInfoPart>().Value;
+//                   var type = infoparts.Where(m => m.Title == "StoneType").SingleOrDefault<StoneInfoPart>().Value;
+//                    var color = infoparts.Where(m=> m.Title == "StoneColor").SingleOrDefault<StoneInfoPart>().Value;
+//                    var clarity = infoparts.Where(m=> m.Title == "StoneClarity").SingleOrDefault<StoneInfoPart>().Value;
+//
+//
+//
+//                    diamond.CompositeDescription = "A " + weight + " Ct. " + color + "/" + clarity + " " + type.ToLower() + " diamond.";
 
 
                     return diamond;

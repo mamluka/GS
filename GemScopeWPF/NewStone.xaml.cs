@@ -184,50 +184,22 @@ namespace GemScopeWPF
 
 		private bool ValidateUserInput()
 		{
-			bool isValid = true;
+		    var isValid = false;
 
-			string filename = this.Filename.Text;
-			int istonetype = this.StoneType.SelectedIndex;
+		    isValid = !String.IsNullOrWhiteSpace(this.LocalID.Text);
+		    isValid = !String.IsNullOrWhiteSpace(this.Filename.Text);
 
-			string caratweight = this.CaratWeight.Text;
 
-			int icolor = this.StoneColor.SelectedIndex;
-			int iclarity = this.StoneClarity.SelectedIndex;
 
-			//filename required
+		    //filename required
 
-			if (String.IsNullOrWhiteSpace(filename))
-			{
-				isValid = false;
-			}
 
-			Regex r = new Regex(@"[^/?*:;{}\\]+");
-			isValid = r.IsMatch(filename);
-
-			if (istonetype == 1)
-			{
-				isValid = false;
-			}
-
-			r = new Regex(@"^\d{0,8}(\.\d{1,8})?$");
-			isValid = r.IsMatch(caratweight);
-
-			if (icolor == 0)
-			{
-				isValid = false;
-			}
-
-			if (iclarity == 0)
-			{
-				isValid = false;
-			}
-
-			return isValid;
+		    return isValid;
 
 
 		}
 
-		private void EditImage_Click(object sender, RoutedEventArgs e)
+	    private void EditImage_Click(object sender, RoutedEventArgs e)
 		{
 			var manager = new ExtraManager();
 			manager.EditImageWithDefaultEditor(this.CurrentStone.FullFilePath);

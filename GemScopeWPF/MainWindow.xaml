@@ -192,7 +192,6 @@
                             <MenuItem Header="Name" Tag="name" Click="ViewOrderBy"></MenuItem>
                             <MenuItem Header="Date modified" Tag="date" Click="ViewOrderBy"></MenuItem>
                             <MenuItem Header="Type" Tag="type" Click="ViewOrderBy"></MenuItem>
-                            <MenuItem Header="Diamond weight" Tag="weight" Click="ViewOrderBy"></MenuItem>
                             <Separator></Separator>
                             <MenuItem Header="Ascending" Tag="asc" Click="ViewOrderByDirection"></MenuItem>
                             <MenuItem Header="Descending" Tag="desc" Click="ViewOrderByDirection"></MenuItem>

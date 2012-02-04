@@ -248,7 +248,7 @@
 <!--                    </StackPanel>-->
                     <StackPanel Orientation="Horizontal" Margin="0,0,5,5">
                         <Label Width="100" >Stock ID</Label>
-                        <TextBox Width="150" Tag="LocalID"></TextBox>
+                        <TextBox Width="150" Tag="LocalID" Name="LocalID"></TextBox>
                     </StackPanel>
                 </StackPanel>
 
