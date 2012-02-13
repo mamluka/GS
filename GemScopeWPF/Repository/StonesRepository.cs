@@ -10,6 +10,9 @@ using System.Xml.Linq;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using GemScopeWPF.Utils;
+using Newtonsoft.Json;
+using TagLib;
+using File = TagLib.File;
 
 namespace GemScopeWPF.Repository
 {
@@ -22,104 +25,40 @@ namespace GemScopeWPF.Repository
         public string XmlFile { get; set; }
         public string XmlFilePath { get; set; }
         private XDocument Xdoc { get; set; }
-        /// <summary>
-        /// Build a new rep object
-        /// </summary>
-        /// <param name="path">The path of the folder that we are looking at</param>
-        public StonesRepository(string path)
+
+        public Stone LoadStoneByFilenameInCurrentFolder(string filename)
         {
-            StoneInfo = new List<StoneInfoPart>();
-            IsExtendedStoneInfoExists = false;
-
-
-
-            StoneRepXMLFilenameWithoutPath = SettingsManager.ReadSetting("StoneRepXMLFilename");
-
-            //inforce default
-            if (String.IsNullOrWhiteSpace(StoneRepXMLFilenameWithoutPath))
+            try
             {
-                StoneRepXMLFilenameWithoutPath = "stonerep.xml";
-            }
-            
-            XmlFile = Path.Combine(path,StoneRepXMLFilenameWithoutPath);
-            XmlFilePath = path;
-
-            this.IsExtendedStoneInfoPresent(path);
-
-            if (IsExtendedStoneInfoExists)
-            {
-                Xdoc = XDocument.Load(XmlFile);
-            }
-            else
-            {
-                Xdoc = null;
-            }
-
-
-
-            
-        }
-        /// <summary>
-        /// Loads the stone using the filename in the current folder
-        /// </summary>
-        /// <param name="file">The name of the file in the folder without the path</param>
-        /// <returns></returns>
-        public Stone LoadStoneByFilenameInCurrentFolder(string file)
-        {
-            if (IsExtendedStoneInfoExists)
-            {
-                var q = from s in Xdoc.Root.Elements("stone")
-                        where s.Attribute("filename").Value == file
-                        select s;
-
-                if (q.SingleOrDefault() != null)
+                using (var file = TagLib.File.Create(filename))
                 {
-                    Diamond diamond = new Diamond();
 
-                    var infoparts = from info in q.SingleOrDefault().Elements("info")
-                                    select new StoneInfoPart
-                                    {
-                                        Title = info.Attribute("title").Value,
-                                        Value = info.Value,
-                                        TitleForReport=info.Attribute("titleforreport").Value
-                                    };
-                    
+                    if (file.Tag.Comment == null) return null;
 
-                    foreach (var infopart in infoparts)
-                    {
-                        diamond.InfoList.Add(infopart);
-                    }
+                    var diamond = JsonConvert.DeserializeObject<Diamond>(file.Tag.Comment);
 
-                    diamond.Filename = file;
-                    diamond.FullFilePath = Path.Combine(this.XmlFilePath, file);
-                    diamond.MediaType =Convert.ToInt32(q.SingleOrDefault().Attribute("mediatype").Value);
+                    if (diamond == null) return null;
 
-                   var weight = infoparts.Where(m=> m.Title == "CaratWeight").SingleOrDefault<StoneInfoPart>().Value;
-                   var type = infoparts.Where(m => m.Title == "StoneType").SingleOrDefault<StoneInfoPart>().Value;
-                    var color = infoparts.Where(m=> m.Title == "StoneColor").SingleOrDefault<StoneInfoPart>().Value;
-                    var clarity = infoparts.Where(m=> m.Title == "StoneClarity").SingleOrDefault<StoneInfoPart>().Value;
+                    diamond.FullFilePath = filename;
+                    diamond.Filename = Path.GetFileName(filename);
 
-
-
-                    diamond.CompositeDescription = "A " + weight + " Ct. " + color + "/" + clarity + " " + type.ToLower() + " diamond.";
 
 
                     return diamond;
-
-
-
                 }
-                else
-                {
-                    return null;
-                }
+
+
             }
-            else
+            catch (JsonReaderException)
             {
                 return null;
             }
+            catch (Exception ex)
+            {
+                throw new Exception("When tried to load the diamod data from file: " + filename + " an error occured:" + ex.Message);
+            }
         }
-        public bool CreateANewStone(BitmapSource bitmap, string filename, List<StoneInfoPart> infoparts)
+        public bool CreateOrUpdateStone(BitmapSource bitmap, string filename, List<StoneInfoPart> infoparts)
         {
 
             try
@@ -136,33 +75,20 @@ namespace GemScopeWPF.Repository
                 //TODO in the future may support other types
                 string type = "diamond";
 
-                if (!IsExtendedStoneInfoExists)
+                var diamond = new Diamond()
+                                  {
+                                      InfoList = infoparts,
+                                      MediaType = 1,
+
+                                  };
+
+                using (var file = TagLib.File.Create(filename))
                 {
-                    this.CreateEmptyStoneRepXMLFile(XmlFilePath);
-                }
+                    file.GetTag(TagTypes.JpegComment, true);
+                    file.Mode = File.AccessMode.Write;
+                    file.Tag.Comment = JsonConvert.SerializeObject(diamond);
 
-                if (this.LoadStoneByFilenameInCurrentFolder(Path.GetFileName(filename)) == null)
-                {
-
-                    Xdoc.Root.Add(
-                        new XElement("stone",
-                            new XAttribute("type", type),
-                            new XAttribute("mediatype", 1),
-                            new XAttribute("filename", Path.GetFileName(filename)),
-                            new XAttribute("createdate", DateTime.Today.Ticks),
-                            from infopart in infoparts
-                            select new XElement("info",
-                                new XAttribute("title", infopart.Title),
-                                 new XAttribute("titleforreport", infopart.TitleForReport),
-                                new XElement("value", new XCData(infopart.Value)))
-                                ));
-
-
-                    Xdoc.Save(XmlFile);
-                }
-                else
-                {
-                    this.UpdateStone(filename, infoparts);
+                    file.Save();
                 }
 
                 return true;
@@ -178,45 +104,28 @@ namespace GemScopeWPF.Repository
 
         }
 
-        public bool CreateANewStoneMovie(string filename, List<StoneInfoPart> infoparts)
+        public bool CreateOrUpdateStoneMovie(string filename, List<StoneInfoPart> infoparts)
         {
 
             try
             {
-                //save the Jpeg file
-                
-                //TODO in the future may support other types
-                string type = "diamond";
-
-                if (!IsExtendedStoneInfoExists)
+                var diamond = new Diamond()
                 {
-                    this.CreateEmptyStoneRepXMLFile(XmlFilePath);
-                }
-                if (this.LoadStoneByFilenameInCurrentFolder(Path.GetFileName(filename)) == null)
-                {
-                    Xdoc.Root.Add(
-                        new XElement("stone",
-                            new XAttribute("type", type),
-                            new XAttribute("mediatype", 2),
-                            new XAttribute("filename", Path.GetFileName(filename)),
-                            new XAttribute("createdate", DateTime.Today.Ticks),
-                            from infopart in infoparts
-                            select new XElement("info",
-                                new XAttribute("title", infopart.Title),
-                                new XAttribute("titleforreport", infopart.TitleForReport),
-                                new XElement("value", new XCData(infopart.Value)))
-                                ));
+                    InfoList = infoparts,
+                    MediaType = 2
 
+                };
 
-                    Xdoc.Save(XmlFile);
-                }
-                else
+                using (var file = TagLib.File.Create(filename))
                 {
-                    this.UpdateStone(filename, infoparts);
+                    file.GetTag(TagTypes.JpegComment, true);
+                    file.Mode = File.AccessMode.Write;
+                    file.Tag.Comment = JsonConvert.SerializeObject(diamond);
+
+                    file.Save();
                 }
 
                 return true;
-
 
             }
             catch (Exception)
@@ -230,8 +139,8 @@ namespace GemScopeWPF.Repository
         public Stone CreateAnewStoneSkeleton(string filename)
         {
             Diamond diamond = new Diamond();
-            diamond.Filename = filename;
-            diamond.FullFilePath = Path.Combine(this.XmlFilePath, filename);
+            diamond.Filename = Path.GetFileName(filename);
+            diamond.FullFilePath = filename;
             if (Path.GetExtension(filename) == ".jpg")
             {
                 diamond.MediaType = 1;
@@ -245,64 +154,6 @@ namespace GemScopeWPF.Repository
             return diamond;
 
         }
-        public bool IsStoneExistsInRep(string filename)
-        {
-            if (IsExtendedStoneInfoExists)
-            {
-                var q = Xdoc.Root.Elements("stone").Where(m => m.Attribute("filename").Value == filename).SingleOrDefault();
-                if (q != null)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            return false;
-        }
-        public bool UpdateStone(string filename, List<StoneInfoPart> infoparts)
-        {
-
-            try
-            {
-
-                if (!IsExtendedStoneInfoExists)
-                {
-                    this.CreateEmptyStoneRepXMLFile(XmlFilePath);
-                }
-
-                var q = Xdoc.Root.Elements("stone").Where(m => m.Attribute("filename").Value == Path.GetFileName(filename)).SingleOrDefault();
-
-                if (q != null)
-                {
-                    q.Elements("info").Remove();
-                    q.Add(from infopart in infoparts
-                          select new XElement("info",
-                              new XAttribute("title", infopart.Title),
-                              new XAttribute("titleforreport", infopart.TitleForReport),
-                              new XElement("value", new XCData(infopart.Value)))
-
-
-                            );
-                }
-
-
-                Xdoc.Save(XmlFile);
-
-                return true;
-
-
-            }
-            catch (Exception)
-            {
-
-                return false;
-
-            }
-
-        }
-
         public bool DeleteStone(string filename, bool deleteondisk = false)
         {
 
@@ -371,7 +222,7 @@ namespace GemScopeWPF.Repository
           
             string xmlfile = Path.Combine(path, this.StoneRepXMLFilenameWithoutPath);
 
-            if (File.Exists(xmlfile))
+            if (System.IO.File.Exists(xmlfile))
             {
                 IsExtendedStoneInfoExists = true;
             } else 
@@ -386,7 +237,7 @@ namespace GemScopeWPF.Repository
 
         public bool IsStoneExists(string filename)
         {
-            return File.Exists(filename);
+            return System.IO.File.Exists(filename);
         }
 
     }

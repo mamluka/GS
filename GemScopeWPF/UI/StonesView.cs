@@ -82,7 +82,7 @@ namespace GemScopeWPF.UI
 
             List<string> fns = fnsjpg.Union(fnswmv).Union(fnsmp4).ToList<string>();
 
-            StonesRepository rep = new StonesRepository(CurrentPath);
+            StonesRepository rep = new StonesRepository();
 
             
             switch (_sortproperty)
@@ -132,16 +132,16 @@ namespace GemScopeWPF.UI
                     
                     break;
                 case 5:
-                    List<string> fns_withdata = fns.Where(m => rep.LoadStoneByFilenameInCurrentFolder(Path.GetFileName(m)) != null).ToList<string>();
-                    List<string> fns_withoutdata = fns.Where(m => rep.LoadStoneByFilenameInCurrentFolder(Path.GetFileName(m)) == null).ToList<string>();
+                    List<string> fns_withdata = fns.Where(m => rep.LoadStoneByFilenameInCurrentFolder(Path.GetFullPath(m)) != null).ToList<string>();
+                    List<string> fns_withoutdata = fns.Where(m => rep.LoadStoneByFilenameInCurrentFolder(Path.GetFullPath(m)) == null).ToList<string>();
                     if (_sortpropertydirection == 1)
                     {
 
-                        fns_withdata = fns_withdata.OrderBy(m => rep.LoadStoneByFilenameInCurrentFolder(Path.GetFileName(m)).GetInfoByTitle("CaratWeight")).ToList<string>();
+                        fns_withdata = fns_withdata.OrderBy(m => rep.LoadStoneByFilenameInCurrentFolder(Path.GetFullPath(m)).GetInfoByTitle("CaratWeight")).ToList<string>();
                     }
                     else
                     {
-                        fns_withdata = fns_withdata.OrderByDescending(m => rep.LoadStoneByFilenameInCurrentFolder(Path.GetFileName(m)).GetInfoByTitle("CaratWeight")).ToList<string>();
+                        fns_withdata = fns_withdata.OrderByDescending(m => rep.LoadStoneByFilenameInCurrentFolder(Path.GetFullPath(m)).GetInfoByTitle("CaratWeight")).ToList<string>();
                     }
 
                     fns = fns_withdata.Union(fns_withoutdata).ToList<string>();
@@ -264,7 +264,7 @@ namespace GemScopeWPF.UI
                 stack.Children.Add(img);
                 stack.Children.Add(blk1);
 
-                stack.Tag = Path.GetFileName(file);
+                stack.Tag = file;
 
                 
 
@@ -296,11 +296,7 @@ namespace GemScopeWPF.UI
 
         }
 
-        static void mp_MediaOpened(object sender, EventArgs e)
-        {
-            MessageBox.Show("started");
-        }
-
+      
         static void stack_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2)
@@ -318,7 +314,7 @@ namespace GemScopeWPF.UI
             {
                 string filename = (string)((StackPanel)((ListBox)sender).SelectedItem).Tag;
 
-                StonesRepository rep = new StonesRepository(CurrentPath);
+                StonesRepository rep = new StonesRepository();
 
                 Stone stone = rep.LoadStoneByFilenameInCurrentFolder(filename);
 
@@ -377,7 +373,7 @@ namespace GemScopeWPF.UI
         {
             if (ViewControl.SelectedItem != null)
             {
-                StonesRepository rep = new StonesRepository(CurrentPath);
+                StonesRepository rep = new StonesRepository();
                 //TODO move this to  a property getter
                 string filename = (string)((StackPanel)(ViewControl).SelectedItem).Tag;
 
@@ -406,7 +402,7 @@ namespace GemScopeWPF.UI
             {
                 foreach (var item in ViewControl.SelectedItems)
                 {
-                    StonesRepository rep = new StonesRepository(CurrentPath);
+                    StonesRepository rep = new StonesRepository();
                     //TODO move this to  a property getter
                     string filename = (string)((StackPanel)(item)).Tag;
 
@@ -435,9 +431,6 @@ namespace GemScopeWPF.UI
             {
                 File.Move(file, Path.Combine(CurrentPath, newfilename + ext));
 
-                StonesRepository rep = new StonesRepository(CurrentPath);
-                rep.RenameStone(Path.GetFileName(file),newfilename + ext);
-
                 RefreshView();
             }
 
@@ -452,9 +445,6 @@ namespace GemScopeWPF.UI
             if (File.Exists(file))
             {
                 File.Delete(file);
-
-                StonesRepository rep = new StonesRepository(CurrentPath);
-                rep.DeleteStone(Path.GetFileName(file));
 
                 RefreshView();
                 

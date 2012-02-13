@@ -20,6 +20,7 @@ using GemScopeWPF.ViewModel;
 using System.Media;
 using NLog;
 using WPFMediaKit.DirectShow.Controls;
+using TagLib;
 
 namespace GemScopeWPF
 {
@@ -455,6 +456,34 @@ namespace GemScopeWPF
         {
             var capture = Capture.GetInstance();
             capture.Format();
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+//
+//            // Extract exif metadata
+//            ImageFile file = ImageFile.FromFile(@"C:\Users\maMLUka\Documents\DJV\1.jpg");
+//
+//            // Add the Exif Artist tag
+//            file.Properties.Set(ExifTag.ImageDescription,"test 1 2 3" );
+//
+//            // Save exif metadata with the image
+//            file.Save(@"C:\Users\maMLUka\Documents\DJV\1.jpg");
+//
+//            ImageFile file2 = ImageFile.FromFile(@"C:\Users\maMLUka\Documents\DJV\1.jpg");
+//            MessageBox.Show((string)file2.Properties[ExifTag.ImageDescription].Value);
+          
+                
+//            var file = File.Create(@"C:\Users\maMLUka\Documents\DJV\1.jpg");
+//            file.Tag.Comment = String.Concat(Enumerable.Repeat("Hello", 400));
+//
+//            file.Save();
+
+            var file2 = File.Create(@"C:\Users\maMLUka\Documents\DJV\3.jpg");
+
+            MessageBox.Show(file2.Tag.Comment);
+
+
         }
     }
 

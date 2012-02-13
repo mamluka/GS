@@ -59,7 +59,8 @@ namespace GemScopeWPF
 				 CapturedImage.Source = src;
 				 
 				 this.Filename.IsEnabled = false;
-				 
+			    this.Filename.Text = CurrentStone.Filename;
+
 			}
 		}
 
@@ -109,7 +110,7 @@ namespace GemScopeWPF
 
 	    private void SaveDiamond_Click(object sender, RoutedEventArgs e)
 		{
-			StonesRepository rep = new StonesRepository(FolderUponCaptureEvent);
+			StonesRepository rep = new StonesRepository();
 			
 			//Create the infoparts from input controls
 
@@ -157,14 +158,10 @@ namespace GemScopeWPF
 				MessageBox.Show("Filename,Stonetype,Stone Weight,Clarity and color are mendatory fields...");
 				return;
 			}
-			if (this.EditMode)
-			{
-				rep.UpdateStone(filename, infoparts);
-			}
-			else
-			{
-				rep.CreateANewStone(source, filename, infoparts);
-			}
+			
+			
+				rep.CreateOrUpdateStone(source, filename, infoparts);
+			
 
 			//WebCam webcam = WebCam.GetInstance();
 		   // webcam.Start();
@@ -250,13 +247,12 @@ namespace GemScopeWPF
                 var fullFileName = dlg.FileName;
                 var filename = Path.GetFileName(fullFileName);
                 var folder = Path.GetDirectoryName(fullFileName);
-                var stoneRepository = new StonesRepository(folder);
+                var stoneRepository = new StonesRepository();
 
-                if (stoneRepository.IsStoneExistsInRep(filename))
-                {
+               
                     var importedStone = stoneRepository.LoadStoneByFilenameInCurrentFolder(filename);
                     LoadDetailsByStone(importedStone);
-                }
+                
             }
         }
 

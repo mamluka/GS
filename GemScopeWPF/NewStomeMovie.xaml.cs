@@ -44,8 +44,11 @@ namespace GemScopeWPF
                 //load iamge
 
                 this.mediaPlayer.Source = new Uri(CurrentStone.FullFilePath, UriKind.Absolute);
-                this.mediaPlayer.LoadedBehavior = WPFMediaKit.DirectShow.MediaPlayers.MediaState.Play;
-              
+               this.mediaPlayer.LoadedBehavior = WPFMediaKit.DirectShow.MediaPlayers.MediaState.Play;
+
+                Filename.IsEnabled = false;
+                Filename.Text = CurrentStone.Filename;
+
 
 
             }
@@ -83,32 +86,32 @@ namespace GemScopeWPF
 
                         combo.SelectedItem =
                             combo.Items.OfType<ComboBoxItem>().Where(m => (string) m.Tag == value.Value).Single();
-                        //  = combo.Items.Count - 1;
-                        //  combo.Items.OfType<ComboBoxItem>().Where(m => m.Tag == value.Value).Single().IsSelected = true;
-                        //  combo.SelectedIndex = combo.Items.IndexOf(combo.Items.OfType<ComboBoxItem>().Where(m => m.Tag == value.Value).Single());
+
                     }
                 }
 
-                // string tag = (string)panel.Children.OfType<TextBox>().SingleOrDefault().Tag;
 
-                //  var value = CurrentStone.InfoList.Where(m=> m.Title == tag).SingleOrDefault() ;
-
-                //  if (value != null)
-                // {
-                //     panel.Children.OfType<TextBox>().SingleOrDefault().Text = value.Value;
-                //}
             }
         }
 
-        //   private string mLogPath = "C:\\Log\\Log.txt";
         private const string LIBAV_PATH = "LibAV";
 
         private void SaveDiamond_Click(object sender, RoutedEventArgs e)
         {
 
+
+            mediaPlayer.MediaClosed+=new RoutedEventHandler(SaveOrUpdateMovieAfterTheMovieFileIsFree);
+
+            mediaPlayer.Close();
+
+
+        }
+
+        private void SaveOrUpdateMovieAfterTheMovieFileIsFree(object sender, RoutedEventArgs routedEventArgs)
+        {
             try
             {
-                StonesRepository rep = new StonesRepository(FolderUponCaptureEvent);
+                StonesRepository rep = new StonesRepository();
 
                 //Create the infoparts from input controls
 
@@ -129,17 +132,17 @@ namespace GemScopeWPF
                         return;
                     }
                 }
-            
+
                 if (!String.IsNullOrWhiteSpace(TempFileName))
                 {
                     ICAVConverter converter = new CAVConverter();
-                    
+
 
                     converter.SetLicenseKey("orna@diamondsview.com", "62A80CE3A6DB3F755C8C7478D44332E5928296AC08E61FCCD052D464049EDDEFCE62B2ED069F1396AC27F7DA120E6A3FDE982ACA8B49A4E8735552303198E03250EFE9D36E9E5349D2E289FF18D6C919CAB81199B4B24B13ABDF70CBB53605C844B1ED2C4164D08B1B4392C526C3D49E4100C1399C052C986BA57392042AC468BF0DDFD7BA5B12AFC4F2FFC21F9DF83D75C054DC6DBC198B091AD0E8AFD49D7A8CBA1E6B1BEA6BE3E0A3B41DA51B79E0678A7B675D3183618229AF2D50650A8505E9EA106E8507156E53ECA07973D883152F3CF4A75EBA57576B50A56117E2B129C5734150D552B7519D28AA7368895C740444BFEC403C041F4BA207F1258786");
 
                     converter.LoadAVLib(AppDomain.CurrentDomain.BaseDirectory + LIBAV_PATH);
 
-                  
+
 
                     converter.OutputOptions = new COutputOptions();
                     converter.OutputOptions.FrameSize = "640x480";
@@ -149,13 +152,13 @@ namespace GemScopeWPF
 
                     //Set output video bitrate
 
-            
-      
 
-                   // converter.LogPath = @"c:\log.txt";
-                   //  converter.LogLevel = CLogLevel.cllDebug;
 
-                   
+
+                    // converter.LogPath = @"c:\log.txt";
+                    //  converter.LogLevel = CLogLevel.cllDebug;
+
+
 
                     try
                     {
@@ -167,7 +170,6 @@ namespace GemScopeWPF
                         MessageBox.Show(ex.Message);
                         throw;
                     }
-
 
 
                     // File.Move(TempFileName, filename);
@@ -197,21 +199,18 @@ namespace GemScopeWPF
 
                 }
 
-                if (this.EditMode)
-                {
-                    rep.UpdateStone(filename, infoparts);
-                }
-                else
-                {
-                    rep.CreateANewStoneMovie(filename, infoparts);
-                }
+              
+
+
+                rep.CreateOrUpdateStoneMovie(filename, infoparts);
+
 
                 //WebCam webcam = WebCam.GetInstance();
                 // webcam.Start();
 
                 StonesView.RefreshView();
 
-                this.Close();
+                Close();
             }
             catch (Exception ex)
             {
@@ -219,9 +218,9 @@ namespace GemScopeWPF
                 MessageBox.Show(ex.StackTrace);
                 throw;
             }
-
-
         }
+
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -299,14 +298,13 @@ namespace GemScopeWPF
                 // Open document
                 var fullFileName = dlg.FileName;
                 var filename = Path.GetFileName(fullFileName);
-                var folder = Path.GetDirectoryName(fullFileName);
-                var stoneRepository = new StonesRepository(folder);
 
-                if (stoneRepository.IsStoneExistsInRep(filename))
-                {
+                var stoneRepository = new StonesRepository();
+
+               //TODO check if detail exist
                     var importedStone = stoneRepository.LoadStoneByFilenameInCurrentFolder(filename);
                     LoadMovieDetailsByStone(importedStone);
-                }
+                
             }
         }
 
