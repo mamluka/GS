@@ -17,14 +17,14 @@ namespace GemScopeWPF.Sharing
         
         public string CreatePDFFile(Stone stone)
         {
-            string filename = stone.FullFilePath+".pdf";
+            var filename = stone.FullFilePath+".pdf";
 
-            Document document = this.CreateDocument();
+            var document = this.CreateDocument();
 
             DefineStyles();
             PlaceImage(stone);
 
-            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(true);
+            var pdfRenderer = new PdfDocumentRenderer(true);
 
             // Set the MigraDoc document
             pdfRenderer.Document = document;
@@ -32,25 +32,17 @@ namespace GemScopeWPF.Sharing
             // Create the PDF document
             pdfRenderer.RenderDocument();
 
-            SaveFileDialog savedlg = new SaveFileDialog();
+            var savedlg = new SaveFileDialog();
             savedlg.DefaultExt = ".pdf";
             
            // Save the PDF document...
-            if (savedlg.ShowDialog() == true)
-            {
-                filename = savedlg.FileName;
-                pdfRenderer.Save(filename);
-                Process.Start(filename);
-                return filename;
-            }
-            else
-            {
-                return "";
-            }
-            
-                    // ...and start a viewer.
-                   
+        	if (savedlg.ShowDialog() != true)
+        		return String.Empty;
 
+        	filename = savedlg.FileName;
+        	pdfRenderer.Save(filename);
+        	Process.Start(filename);
+        	return filename;
            
         }
 
@@ -60,7 +52,7 @@ namespace GemScopeWPF.Sharing
             string filename = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(stone.Filename) + ".pdf");
                 
 
-            Document document = this.CreateDocument();
+            Document document = CreateDocument();
 
             DefineStyles();
             PlaceImage(stone);
@@ -76,18 +68,7 @@ namespace GemScopeWPF.Sharing
          
            pdfRenderer.Save(filename);
 
-           if (File.Exists(filename))
-           {
-               return filename;
-           }
-           else
-           {
-               return String.Empty;
-           }
-
-            
-            // ...and start a viewer.
-                   
+           return File.Exists(filename) ? filename : String.Empty;
 
         }
 

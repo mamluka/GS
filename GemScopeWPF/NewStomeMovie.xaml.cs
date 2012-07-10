@@ -297,13 +297,20 @@ namespace GemScopeWPF
             {
                 // Open document
                 var fullFileName = dlg.FileName;
-                var filename = Path.GetFileName(fullFileName);
+
 
                 var stoneRepository = new StonesRepository();
 
                //TODO check if detail exist
-                    var importedStone = stoneRepository.LoadStoneByFilenameInCurrentFolder(filename);
-                    LoadMovieDetailsByStone(importedStone);
+                var importedStone = stoneRepository.LoadStoneByFilenameInCurrentFolder(fullFileName);
+                if (importedStone !=null)
+                {
+                     LoadMovieDetailsByStone(importedStone);
+                } else
+                {
+                    MessageBox.Show("No details found in: " + fullFileName);
+                }
+                   
                 
             }
         }

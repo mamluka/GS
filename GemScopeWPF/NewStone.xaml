@@ -74,6 +74,7 @@
                             <ComboBoxItem Content="Y" Tag="Y"></ComboBoxItem>
                             <ComboBoxItem Content="Z" Tag="Z"></ComboBoxItem>
                             <ComboBoxItem Content="Black" Tag="Black"></ComboBoxItem>
+                            <ComboBoxItem Content="BR" Tag="BR"></ComboBoxItem>
                             <ComboBoxItem Content="FLY" Tag="FLY"></ComboBoxItem>
                             <ComboBoxItem Content="FY" Tag="FY"></ComboBoxItem>
                             <ComboBoxItem Content="FIY" Tag="FIY"></ComboBoxItem>
@@ -115,6 +116,8 @@
                             <ComboBoxItem Content="FBD" Tag="FBD"></ComboBoxItem>
                             <ComboBoxItem Content="FBL" Tag="FBL"></ComboBoxItem>
                             <ComboBoxItem Content="FG" Tag="FG"></ComboBoxItem>
+                            <ComboBoxItem Content="LB" Tag="LB"></ComboBoxItem>
+                            <ComboBoxItem Content="TLB" Tag="TLB"></ComboBoxItem>
                             <ComboBoxItem Content="Mix" Tag="Mix"></ComboBoxItem>
                         </ComboBox>
                     </StackPanel>

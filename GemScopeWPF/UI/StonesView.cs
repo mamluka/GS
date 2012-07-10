@@ -166,88 +166,42 @@ namespace GemScopeWPF.UI
 
                 if (Path.GetExtension(file) == ".jpg")
                 {
+                    try
+                    {
+                        var stream = new FileStream(file, FileMode.Open, FileAccess.Read);
+                        ms.SetLength(stream.Length);
+                        stream.Read(ms.GetBuffer(), 0, (int) stream.Length);
 
-                    FileStream stream = new FileStream(file, FileMode.Open, FileAccess.Read);
-                    ms.SetLength(stream.Length);
-                    stream.Read(ms.GetBuffer(), 0, (int)stream.Length);
+                        ms.Flush();
+                        stream.Close();
 
-                    ms.Flush();
-                    stream.Close();
 
-                    
 
-                    src.BeginInit();
-                    src.StreamSource = ms;
-                    src.EndInit();
-                    img.Source = src;
-                    
+                        src.BeginInit();
+                        src.StreamSource = ms;
+                        src.EndInit();
+                        img.Source = src;
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("A bad iamge was found: " + file);
+                    }
+
+
                 }
                 else if (Path.GetExtension(file) == ".mp4" || Path.GetExtension(file) == ".wmv")
                 {
-                    //MediaPlayer mp = new MediaPlayer();
-                    //mp.ScrubbingEnabled = true;
-                    //mp.Open(new Uri(file,UriKind.Absolute));
-                    //mp.Play();
-                    //mp.MediaOpened += new EventHandler(mp_MediaOpened);
-                    //mp.Position = new TimeSpan(0, 0, 2);
-                    //RenderTargetBitmap rtb = new RenderTargetBitmap(640, 480, 1/200, 1/200, PixelFormats.Default);
-                    //DrawingVisual dv = new DrawingVisual();
-                    //DrawingContext dc = dv.RenderOpen();
-                    //dc.DrawVideo(mp, new Rect(0, 0, 640, 480));
-                    //dc.Close();
-                    //rtb.Render(dv);                   
-                    //img.Source = BitmapFrame.Create(rtb);
-                    //mp.Stop();
-                    //mp.Close();
-
-                    //MediaPlayer _mediaPlayer = new MediaPlayer();
-                    //_mediaPlayer.ScrubbingEnabled = true;
-                    //_mediaPlayer.Open(new Uri(file, UriKind.Absolute));
-                    //uint[] framePixels;
-                    //uint[] previousFramePixels;
-
-                    //framePixels = new uint[640 * 480];
-                    //previousFramePixels = new uint[framePixels.Length];
-
-                    //var drawingVisual = new DrawingVisual();
-                    //var renderTargetBitmap = new RenderTargetBitmap(640, 480, 96, 96, PixelFormats.Default);
-                    //using (var drawingContext = drawingVisual.RenderOpen())
-                    //{
-                    //    drawingContext.DrawVideo(_mediaPlayer, new Rect(0, 0, 640, 480));
-                    //}
-                    //renderTargetBitmap.Render(drawingVisual);
-
-                    //// Copy the pixels to the specified location
-                    //renderTargetBitmap.CopyPixels(previousFramePixels, 640 * 4, 0);
-
                     src.BeginInit();
                     src.UriSource = new Uri(@"/GemScopeWPF;component/Media/movieplaceholder.jpg", UriKind.RelativeOrAbsolute);
                     src.EndInit();
 
                     img.Source = src;
-                 
-                    
-
-
-                    
 
                 }
-
-                
                
                 double[] wh = new double[] {100,100};
-
- 
-                
-                
-
                 img.Width = wh[0];
-               // img.Height = wh[1];
-
-                
                 img.Margin = new Thickness(5);
-
-                
 
                 TextBlock blk1 = new TextBlock();
                 if (Path.GetFileNameWithoutExtension(file).Length > 20)

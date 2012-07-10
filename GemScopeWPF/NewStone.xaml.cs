@@ -245,14 +245,19 @@ namespace GemScopeWPF
             {
                 // Open document
                 var fullFileName = dlg.FileName;
-                var filename = Path.GetFileName(fullFileName);
-                var folder = Path.GetDirectoryName(fullFileName);
+
                 var stoneRepository = new StonesRepository();
 
-               
-                    var importedStone = stoneRepository.LoadStoneByFilenameInCurrentFolder(filename);
+
+                var importedStone = stoneRepository.LoadStoneByFilenameInCurrentFolder(fullFileName);
+                if (importedStone != null)
+                {
                     LoadDetailsByStone(importedStone);
-                
+                }
+                else
+                {
+                    MessageBox.Show("No details found in: " + fullFileName);
+                }
             }
         }
 
